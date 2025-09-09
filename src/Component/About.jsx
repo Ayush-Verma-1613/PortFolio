@@ -8,12 +8,12 @@ const aboutConfig = {
     "I am a passionate MERN stack developer who thrives on transforming complex ideas into elegant, scalable web solutions. With a deep love for clean code and innovative design, I bridge the gap between functionality and aesthetics.",
     "My journey in web development is driven by curiosity and a commitment to excellence. I specialize in creating seamless user experiences while building robust, efficient backend systems that stand the test of time."
   ],
-  stats: [
-    { number: "50+", label: "Projects Completed", icon: "🚀" },
-    { number: "3+", label: "Years Experience", icon: "⭐" },
-    { number: "100%", label: "Client Satisfaction", icon: "💯" },
-    { number: "24/7", label: "Problem Solving", icon: "🔧" }
-  ],
+  // stats: [
+  //   { number: "50+", label: "Projects Completed", icon: "🚀" },
+  //   { number: "3+", label: "Years Experience", icon: "⭐" },
+  //   { number: "100%", label: "Client Satisfaction", icon: "💯" },
+  //   { number: "24/7", label: "Problem Solving", icon: "🔧" }
+  // ],
   skills: [
     { name: "Frontend Development", level: 95, color: "from-cyan-400 to-blue-500" },
     { name: "Backend Architecture", level: 90, color: "from-purple-400 to-pink-500" },
@@ -21,14 +21,16 @@ const aboutConfig = {
     { name: "UI/UX Design", level: 80, color: "from-orange-400 to-red-500" }
   ],
   technologies: [
-    { name: "React", icon: "⚛️", category: "Frontend" },
-    { name: "Node.js", icon: "🟢", category: "Backend" },
     { name: "MongoDB", icon: "🍃", category: "Database" },
     { name: "Express", icon: "🚂", category: "Backend" },
-    { name: "TypeScript", icon: "📘", category: "Language" },
-    { name: "Next.js", icon: "▲", category: "Framework" },
-    { name: "Tailwind", icon: "🎨", category: "Styling" },
-    { name: "AWS", icon: "☁️", category: "Cloud" }
+    { name: "React", icon: "⚛️", category: "Frontend" },
+    { name: "Node.js", icon: "🟢", category: "Backend" },
+ 
+    
+    // { name: "TypeScript", icon: "📘", category: "Language" },
+    // { name: "Next.js", icon: "▲", category: "Framework" },
+    // { name: "Tailwind", icon: "🎨", category: "Styling" },
+    // { name: "AWS", icon: "☁️", category: "Cloud" }
   ]
 };
 
@@ -147,25 +149,25 @@ const TechCard = ({ tech, index, isVisible }) => {
 };
 
 // Stats Card Component
-const StatsCard = ({ stat, index, isVisible }) => {
-  return (
-    <div
-      className={`group relative bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-purple-400 transition-all duration-300 transform hover:scale-105 ${
-        isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-4'
-      }`}
-      style={{ animationDelay: `${index * 0.2}s` }}
-    >
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-cyan-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <div className="relative z-10 text-center">
-        <div className="text-4xl mb-2 group-hover:animate-pulse">{stat.icon}</div>
-        <div className="text-3xl font-bold mb-1">
-          <AnimatedCounter end={stat.number} isVisible={isVisible} />
-        </div>
-        <div className="text-slate-400 text-sm">{stat.label}</div>
-      </div>
-    </div>
-  );
-};
+// const StatsCard = ({ stat, index, isVisible }) => {
+//   return (
+//     <div
+//       className={`group relative bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-purple-400 transition-all duration-300 transform hover:scale-105 ${
+//         isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-4'
+//       }`}
+//       style={{ animationDelay: `${index * 0.2}s` }}
+//     >
+//       <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-cyan-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+//       <div className="relative z-10 text-center">
+//         <div className="text-4xl mb-2 group-hover:animate-pulse">{stat.icon}</div>
+//         <div className="text-3xl font-bold mb-1">
+//           <AnimatedCounter end={stat.number} isVisible={isVisible} />
+//         </div>
+//         <div className="text-slate-400 text-sm">{stat.label}</div>
+//       </div>
+//     </div>
+//   );
+// };
 
 // Main About Component
 export default function About() {
@@ -259,7 +261,7 @@ export default function About() {
         </div>
 
         {/* Stats Section */}
-        <div ref={statsRef} className="mb-20">
+        {/* <div ref={statsRef} className="mb-20">
           <h3 className={`text-3xl font-bold text-center text-white mb-12 transition-all duration-1000 ${
             statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
@@ -274,8 +276,8 @@ export default function About() {
                 isVisible={statsVisible}
               />
             ))}
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
 
         {/* Technologies Section */}
         <div ref={techRef}>
@@ -284,15 +286,17 @@ export default function About() {
           }`}>
             Technologies I Love
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-            {aboutConfig.technologies.map((tech, index) => (
-              <TechCard
-                key={tech.name}
-                tech={tech}
-                index={index}
-                isVisible={techVisible}
-              />
-            ))}
+          <div className="flex justify-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl">
+              {aboutConfig.technologies.map((tech, index) => (
+                <TechCard
+                  key={tech.name}
+                  tech={tech}
+                  index={index}
+                  isVisible={techVisible}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
