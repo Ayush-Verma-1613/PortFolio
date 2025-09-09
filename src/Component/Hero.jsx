@@ -136,6 +136,7 @@ export default function Hero() {
           <h1 className="text-6xl md:text-8xl font-black mb-6 leading-tight">
             I'm <AnimatedText className="font-black">{heroConfig.name}</AnimatedText>
           </h1>
+          <p className="text-amber-400">I don’t follow trends, I code them.</p>
         </div>
 
         {/* Dynamic title with typewriter effect */}
@@ -171,18 +172,7 @@ export default function Hero() {
         </div>
 
         {/* Social Links */}
-        <div className="flex justify-center gap-6 transform transition-all duration-700 delay-1000">
-          {heroConfig.social.map((item, index) => (
-            <SocialLink key={item.name} item={item} index={index} />
-          ))}
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-slate-500 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-gradient-to-b from-cyan-400 to-purple-500 rounded-full mt-2 animate-pulse"></div>
-          </div>
-        </div>
+        
       </div>
 
       {/* Custom CSS for animations */}
