@@ -320,7 +320,7 @@ export default function Contact() {
 
         {/* Social Links Section */}
         <div ref={socialRef} className="text-center">
-          <h3 className={`text-2xl font-bold text-white mb-8 transition-all duration-1000 ${
+          {/* <h3 className={`text-2xl font-bold text-white mb-8 transition-all duration-1000 ${
             socialVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
             Find me on social media
@@ -335,7 +335,7 @@ export default function Contact() {
                 isVisible={socialVisible}
               />
             ))}
-          </div>
+          </div> */}
 
           {/* Response Time Info */}
           <div className={`bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-8 max-w-2xl mx-auto transition-all duration-1000 delay-600 ${
@@ -359,7 +359,7 @@ export default function Contact() {
                 Send Email 📧
               </a>
               <a
-                href={`https://wa.me/919876543210`}
+                href={`https://wa.me/918882423378`}
                 className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-green-500/25 transition-all duration-300 transform hover:scale-105"
               >
                 WhatsApp Me 💬
