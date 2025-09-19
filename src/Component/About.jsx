@@ -191,115 +191,112 @@ export default function About() {
 >
     </div>
       
-      <div className="container mx-auto px-6 relative z-10">
-        
-        {/* Section Header */}
-        <div ref={titleRef} className="text-center mb-16">
-          <h2 className={`text-5xl font-black mb-4 transition-all duration-1000 ${
-            titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              {aboutConfig.title}
-            </span>
-          </h2>
-          <p className={`text-xl text-slate-400 transition-all duration-1000 delay-200 ${
-            titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
-            {aboutConfig.subtitle}
-          </p>
-        </div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+  
+  {/* Section Header */}
+  <div ref={titleRef} className="text-center mb-12 sm:mb-16">
+    <h2
+      className={`text-3xl sm:text-4xl lg:text-5xl font-black mb-3 sm:mb-4 transition-all duration-1000 ${
+        titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
+    >
+      <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+        {aboutConfig.title}
+      </span>
+    </h2>
+    <p
+      className={`text-base sm:text-lg md:text-xl text-slate-400 transition-all duration-1000 delay-200 ${
+        titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      }`}
+    >
+      {aboutConfig.subtitle}
+    </p>
+  </div>
 
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-12 mb-20">
-          
-          {/* Description */}
-          <div ref={contentRef} className="space-y-6">
-            {aboutConfig.description.map((paragraph, index) => (
-              <p
-                key={index}
-                className={`text-lg text-slate-300 leading-relaxed transition-all duration-1000 ${
-                  contentVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
-                }`}
-                style={{ animationDelay: `${index * 0.3}s` }}
-              >
-                {paragraph}
-              </p>
-            ))}
-            
-            {/* Call to Action */}
-            <div className={`pt-6 transition-all duration-1000 delay-600 ${
-              contentVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
-            }`}>
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:scale-105"
-              >
-                Let's Connect
-                <span className="animate-bounce">→</span>
-              </a>
-            </div>
-          </div>
+  {/* Main Content Grid */}
+  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16 lg:mb-20">
+    
+    {/* Description */}
+    <div ref={contentRef} className="space-y-4 sm:space-y-6">
+      {aboutConfig.description.map((paragraph, index) => (
+        <p
+          key={index}
+          className={`text-base sm:text-lg text-slate-300 leading-relaxed transition-all duration-1000 ${
+            contentVisible
+              ? "opacity-100 translate-x-0"
+              : "opacity-0 -translate-x-8"
+          }`}
+          style={{ animationDelay: `${index * 0.3}s` }}
+        >
+          {paragraph}
+        </p>
+      ))}
 
-          {/* Skills Section */}
-          <div ref={skillsRef} className="space-y-6">
-            <h3 className={`text-2xl font-bold text-white mb-6 transition-all duration-1000 ${
-              skillsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
-            }`}>
-              Technical Expertise
-            </h3>
-            <div className="space-y-6">
-              {aboutConfig.skills.map((skill, index) => (
-                <SkillBar
-                  key={skill.name}
-                  skill={skill}
-                  index={index}
-                  isVisible={skillsVisible}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Stats Section */}
-        {/* <div ref={statsRef} className="mb-20">
-          <h3 className={`text-3xl font-bold text-center text-white mb-12 transition-all duration-1000 ${
-            statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            By The Numbers
-          </h3>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {aboutConfig.stats.map((stat, index) => (
-              <StatsCard
-                key={stat.label}
-                stat={stat}
-                index={index}
-                isVisible={statsVisible}
-              />
-            ))}
-          </div> */}
-        {/* </div> */}
-
-        {/* Technologies Section */}
-        <div ref={techRef}>
-          <h3 className={`text-3xl font-bold text-center text-white mb-12 transition-all duration-1000 ${
-            techVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            Technologies I Love
-          </h3>
-          <div className="flex justify-center">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl">
-              {aboutConfig.technologies.map((tech, index) => (
-                <TechCard
-                  key={tech.name}
-                  tech={tech}
-                  index={index}
-                  isVisible={techVisible}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+      {/* Call to Action */}
+      <div
+        className={`pt-4 sm:pt-6 transition-all duration-1000 delay-600 ${
+          contentVisible
+            ? "opacity-100 translate-x-0"
+            : "opacity-0 -translate-x-8"
+        }`}
+      >
+        <a
+          href="#contact"
+          className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
+        >
+          Let’s Connect
+          <span className="animate-bounce">→</span>
+        </a>
       </div>
+    </div>
+
+    {/* Skills Section */}
+    <div ref={skillsRef} className="space-y-5 sm:space-y-6">
+      <h3
+        className={`text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 transition-all duration-1000 ${
+          skillsVisible
+            ? "opacity-100 translate-x-0"
+            : "opacity-0 translate-x-8"
+        }`}
+      >
+        Technical Expertise
+      </h3>
+      <div className="space-y-5 sm:space-y-6">
+        {aboutConfig.skills.map((skill, index) => (
+          <SkillBar
+            key={skill.name}
+            skill={skill}
+            index={index}
+            isVisible={skillsVisible}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+
+  {/* Technologies Section */}
+  <div ref={techRef}>
+    <h3
+      className={`text-2xl sm:text-3xl font-bold text-center text-white mb-8 sm:mb-12 transition-all duration-1000 ${
+        techVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
+    >
+      Technologies I Love
+    </h3>
+    <div className="flex justify-center">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 max-w-md sm:max-w-2xl">
+        {aboutConfig.technologies.map((tech, index) => (
+          <TechCard
+            key={tech.name}
+            tech={tech}
+            index={index}
+            isVisible={techVisible}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
 
       {/* Custom CSS for animations */}
       <style jsx>{`
