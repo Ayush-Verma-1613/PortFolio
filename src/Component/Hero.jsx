@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Code, Sparkles, Star, Zap } from 'lucide-react';
 
 // Configuration object for easy customization
 const heroConfig = {
@@ -18,19 +19,22 @@ const heroConfig = {
   }
 };
 
-// Floating particles component
+// Floating particles component - Enhanced for premium look
 const FloatingParticles = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(20)].map((_, i) => (
+      {[...Array(30)].map((_, i) => (
         <div
           key={i}
-          className="absolute w-1 h-1 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full opacity-30"
+          className="absolute rounded-full opacity-20"
           style={{
+            width: `${2 + Math.random() * 4}px`,
+            height: `${2 + Math.random() * 4}px`,
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
-            animationDelay: `${Math.random() * 2}s`
+            background: `linear-gradient(45deg, #60a5fa, #a855f7, #ec4899)`,
+            animation: `float ${4 + Math.random() * 6}s ease-in-out infinite`,
+            animationDelay: `${Math.random() * 3}s`
           }}
         />
       ))}
@@ -38,16 +42,22 @@ const FloatingParticles = () => {
   );
 };
 
-// Animated gradient text component
-const AnimatedText = ({ children, className = "" }) => {
+// Premium animated background grid
+
+
+// Glowing orbs for premium ambiance
+
+
+// Premium animated text component
+const PremiumAnimatedText = ({ children, className = "" }) => {
   return (
-    <span className={`bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x ${className}`}>
+    <span className={`bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-gradient-x ${className}`}>
       {children}
     </span>
   );
 };
 
-// Typewriter effect component
+// Enhanced typewriter effect - Premium Colored Text
 const TypewriterText = ({ texts, speed = 100 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
@@ -64,7 +74,7 @@ const TypewriterText = ({ texts, speed = 100 }) => {
       }
 
       if (!isDeleting && currentText === fullText) {
-        setTimeout(() => setIsDeleting(true), 2000);
+        setTimeout(() => setIsDeleting(true), 2500);
       } else if (isDeleting && currentText === '') {
         setIsDeleting(false);
         setCurrentIndex((prev) => (prev + 1) % texts.length);
@@ -76,81 +86,31 @@ const TypewriterText = ({ texts, speed = 100 }) => {
   }, [currentText, isDeleting, currentIndex, texts, speed]);
 
   return (
-    <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+    <span className="text-cyan-400">
       {currentText}
-      <span className="animate-pulse">|</span>
+      <span className="animate-pulse text-red-500">|</span>
     </span>
   );
 };
 
-// Profile Image Component with larger image in round frame
-const ProfileImage = () => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
+// Premium floating icons
 
+
+ 
+
+
+// Premium badge component
+const PremiumBadge = ({ text, icon: Icon }) => {
   return (
-    <div className="relative flex justify-center items-center">
-      {/* Outer glowing ring */}
-      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 blur-sm animate-pulse opacity-75"></div>
-      
-      {/* Middle ring - reduced padding for larger image */}
-      <div className="relative w-72 h-72 md:w-96 md:h-96 lg:w-[450px] lg:h-[450px] rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 p-[2px]">
-        
-        {/* Inner container - minimal padding for maximum image size */}
-        <div className="w-full h-full rounded-full bg-slate-900 p-[1px] flex items-center justify-center overflow-hidden">
-          
-          {/* Image container - fills almost entire space */}
-          <div className="w-full h-full rounded-full overflow-hidden bg-slate-800 relative group">
-            {!imageError ? (
-              <>
-                {/* Actual image - now fills the entire container */}
-                <img
-                  src="Picture.jpeg"
-                  alt="Ayush - MERN Stack Developer"
-                  className={`w-full h-full object-cover object-center transition-all duration-700 transform group-hover:scale-105 ${
-                    imageLoaded ? 'opacity-100' : 'opacity-0'
-                  }`}
-                  onLoad={() => setImageLoaded(true)}
-                  onError={() => setImageError(true)}
-                />
-                
-                {/* Loading placeholder */}
-                {!imageLoaded && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-cyan-400"></div>
-                  </div>
-                )}
-              </>
-            ) : (
-              /* Fallback avatar if image fails to load */
-              <div className="w-full h-full bg-gradient-to-br from-slate-700 to-slate-800 flex flex-col items-center justify-center text-slate-300">
-                <div className="text-8xl mb-4">👨‍💻</div>
-                <div className="text-lg font-semibold text-cyan-400">Ayush</div>
-              </div>
-            )}
-            
-            {/* Hover overlay - subtle so it doesn't hide the image */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
-          </div>
-        </div>
-      </div>
-
-      {/* Floating icons around the image */}
-      <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center animate-bounce">
-        <span className="text-xl">⚛️</span>
-      </div>
-      <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-400 rounded-full flex items-center justify-center animate-bounce" style={{ animationDelay: '0.5s' }}>
-        <span className="text-xl">🚀</span>
-      </div>
-      <div className="absolute top-1/2 -right-8 w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-400 rounded-full flex items-center justify-center animate-pulse">
-        <span className="text-sm">💻</span>
-      </div>
+    <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-md rounded-full border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+      {Icon && <Icon size={16} className="text-blue-400 group-hover:scale-110 transition-transform" />}
+      <span className="text-sm font-medium text-white">{text}</span>
     </div>
   );
 };
 
 // Main Hero component
-export default function Hero() {
+export default function PremiumHero() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -160,72 +120,111 @@ export default function Hero() {
   return (
     <section 
       id="home" 
-      className="relative min-h-screen flex items-center overflow-hidden py-12 px-4 sm:px-6 lg:px-8"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 px-4 sm:px-6 lg:px-8 bg-gray-700"
+      style={{ 
+        paddingTop: '140px', // Extra padding for navbar clearance
+        scrollMarginTop: '120px' // For smooth scroll positioning
+      }}
     >
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10 animate-gradient-xy"></div>
-      
-      {/* Floating particles */}
-      <FloatingParticles />
-      
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0" style={{
-        backgroundImage: "url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%23ffffff%22 fill-opacity=%220.05%22%3E%3Ccircle cx=%2220%22 cy=%2220%22 r=%223%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
-      }}></div>
+      {/* Animated background elements */}
+     
+      {/* Premium glassmorphism overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20"></div>
 
-      {/* Main content container */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      {/* Main content container - Premium Card */}
+      <div className="relative z-10 w-full max-w-8xl mx-auto">
+        <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           
-          {/* Left side - Text content */}
-          <div className={`space-y-8 transform transition-all duration-1000 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'} text-center lg:text-left order-2 lg:order-1`}>
+          {/* Premium Black Card with White Screen Background */}
+          <div className="bg-black rounded-3xl shadow-2xl p-8 sm:p-12 lg:p-16 text-center relative overflow-hidden border-4 border-gray-800">
             
-            {/* Greeting and Name */}
-            <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight">
-                I'm <AnimatedText className="font-black">{heroConfig.name}</AnimatedText>
-              </h1>
-              <p className="text-amber-400 text-lg sm:text-xl">I don't follow trends, I code them.</p>
-            </div>
-
-            {/* Dynamic title with typewriter effect */}
-            <div className="h-12 sm:h-16 flex items-center justify-center lg:justify-start">
-              <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold">
-                <TypewriterText texts={heroConfig.roles} speed={150} />
-              </h2>
-            </div>
-
-            {/* Description */}
-            <div>
-              <p className="text-base sm:text-lg lg:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                {heroConfig.description}
-              </p>
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
-              <a
-                href="#projects"
-                className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full text-white font-semibold text-base sm:text-lg shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 w-full sm:w-auto text-center"
-              >
-                <span className="relative z-10">{heroConfig.cta.primary}</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-purple-700 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </a>
+            {/* Subtle inner glow */}
+            <div className="absolute inset-4 border border-gray-700 rounded-2xl pointer-events-none opacity-30"></div>
+            
+            {/* Card Content */}
+            <div className="relative z-10 space-y-6">
               
-              <a
-                href="#contact"
-                className="group px-6 sm:px-8 py-3 sm:py-4 border-2 border-slate-600 rounded-full text-slate-300 font-semibold text-base sm:text-lg hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300 transform hover:scale-105 backdrop-blur-sm bg-slate-800/30 w-full sm:w-auto text-center"
-              >
-                {heroConfig.cta.secondary}
-              </a>
+              {/* Professional Header */}
+              <div className="space-y-3">
+                <div className="inline-block px-6 py-2 bg-red-600 text-white text-sm font-medium tracking-widest uppercase rounded-full shadow-lg">
+                  Professional Developer
+                </div>
+                
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight">
+                  {heroConfig.name}
+                </h1>
+                
+                <div className="w-24 h-1 bg-red-600 mx-auto"></div>
+              </div>
+
+              {/* Professional Title */}
+              <div className="space-y-3">
+                <h2 className="text-xl sm:text-2xl font-serif font-semibold text-red-500">
+                  {heroConfig.title}
+                </h2>
+                
+                {/* Dynamic Role */}
+                <div className="bg-gray-900 rounded-xl px-6 py-3 border border-gray-700 inline-block">
+                  <h3 className="text-base sm:text-lg font-serif font-medium text-cyan-400">
+                    <TypewriterText texts={heroConfig.roles} speed={120} />
+                  </h3>
+                </div>
+              </div>
+
+              {/* Professional Description - More Compact */}
+              <div className="max-w-4xl mx-auto space-y-4">
+                <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-serif">
+                  {heroConfig.description}
+                </p>
+                
+                {/* Professional Quote */}
+                <blockquote className="border-l-4 border-red-600 pl-4 italic text-purple-300 font-serif text-sm">
+                  "I don't follow trends, I code them."
+                </blockquote>
+              </div>
+
+              {/* Professional Services - Horizontal Layout */}
+              <div className="flex flex-wrap justify-center gap-3 py-4">
+                {['MongoDB', 'Express.js', 'React.js', 'Node.js'].map((tech, i) => (
+                  <div key={tech} className="bg-gray-900 border border-gray-700 rounded-lg py-2 px-4 hover:bg-gray-800 hover:border-red-600 transition-all duration-300 group">
+                    <div className="text-xs font-serif font-semibold text-cyan-400 group-hover:text-red-400">{tech}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Professional Contact Actions */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+                <a
+                  href="#projects"
+                  className="group px-8 py-3 bg-red-600 text-white font-serif font-semibold text-base rounded-xl hover:bg-red-700 transition-all duration-300 transform hover:scale-105 w-full sm:w-auto text-center shadow-xl shadow-red-600/30"
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    View Portfolio
+                    <Code size={16} className="group-hover:rotate-12 transition-transform" />
+                  </span>
+                </a>
+                
+                <a
+                  href="#contact"
+                  className="group px-8 py-3 bg-transparent border-2 border-purple-500 text-purple-400 font-serif font-semibold text-base rounded-xl hover:bg-purple-500 hover:text-white transition-all duration-300 transform hover:scale-105 w-full sm:w-auto text-center"
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    Contact Me
+                    <Star size={16} className="group-hover:rotate-12 transition-transform" />
+                  </span>
+                </a>
+              </div>
+
+              {/* Professional Credentials Footer */}
+              <div className="border-t border-gray-700 pt-4 mt-4">
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-gray-400 font-serif">
+                  <div className="text-cyan-400">Available for Premium Projects</div>
+                  <div className="text-purple-400">Full-Stack Development Services</div>
+                </div>
+              </div>
+
             </div>
           </div>
-
-          {/* Right side - Profile Image */}
-          <div className={`flex justify-center lg:justify-end transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} order-1 lg:order-2`}>
-            <ProfileImage />
-          </div>
-
         </div>
       </div>
 
@@ -240,19 +239,12 @@ export default function Hero() {
           }
         }
         
-        @keyframes gradient-xy {
-          0%, 100% {
-            background-position: 0% 0%;
-          }
-          25% {
-            background-position: 100% 0%;
-          }
-          50% {
-            background-position: 100% 100%;
-          }
-          75% {
-            background-position: 0% 100%;
-          }
+        @keyframes grid-move {
+          0% { transform: translateX(0) translateY(0); }
+          25% { transform: translateX(-10px) translateY(-10px); }
+          50% { transform: translateX(0) translateY(-20px); }
+          75% { transform: translateX(10px) translateY(-10px); }
+          100% { transform: translateX(0) translateY(0); }
         }
         
         @keyframes float {
@@ -260,23 +252,13 @@ export default function Hero() {
           50% { transform: translateY(-20px) rotate(180deg); }
         }
         
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
         .animate-gradient-x {
           background-size: 200% 200%;
-          animation: gradient-x 3s ease infinite;
+          animation: gradient-x 4s ease infinite;
         }
         
-        .animate-gradient-xy {
-          background-size: 400% 400%;
-          animation: gradient-xy 15s ease infinite;
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 1s ease-out;
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
         }
       `}</style>
     </section>

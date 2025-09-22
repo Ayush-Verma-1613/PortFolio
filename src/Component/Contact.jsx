@@ -46,12 +46,6 @@ const contactConfig = {
       hoverGradient: "from-blue-700 to-indigo-700"
     }
   ],
-  socialLinks: [
-    { name: "GitHub", icon: "🔗", href: "https://github.com/Ayush-Verma-1613", gradient: "from-gray-700 to-gray-900" },
-    { name: "Twitter", icon: "🐦", href: "https://twitter.com/ayush", gradient: "from-blue-400 to-blue-600" },
-    { name: "Instagram", icon: "📷", href: "https://instagram.com/ayush", gradient: "from-pink-500 to-purple-600" },
-    { name: "Discord", icon: "🎮", href: "https://discord.gg/ayush", gradient: "from-indigo-500 to-purple-600" }
-  ],
   availability: {
     status: "Available for Projects",
     message: "Currently accepting new opportunities",
@@ -106,24 +100,7 @@ const useIsMobile = () => {
   return isMobile;
 };
 
-// Floating Animation Component - Mobile optimized
-const FloatingElement = ({ children, delay = 0 }) => {
-  const isMobile = useIsMobile();
-  
-  return (
-    <div 
-      className="animate-float"
-      style={{ 
-        animationDelay: `${delay}s`,
-        animationDuration: `${isMobile ? 4 : 3 + Math.random() * 2}s`
-      }}
-    >
-      {children}
-    </div>
-  );
-};
-
-// Contact Method Card - Mobile responsive
+// Contact Method Card - Premium Style
 const ContactCard = ({ method, index, isVisible }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
@@ -137,7 +114,7 @@ const ContactCard = ({ method, index, isVisible }) => {
   return (
     <a
       href={method.href}
-      className={`group block relative bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-cyan-400 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/20 ${
+      className={`group block relative bg-gray-900 border border-gray-700 rounded-xl p-4 hover:border-red-600 transition-all duration-500 transform hover:scale-105 ${
         isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
       } ${isClicked ? 'scale-95' : ''} active:scale-95`}
       style={{ animationDelay: `${index * 0.15}s` }}
@@ -146,41 +123,36 @@ const ContactCard = ({ method, index, isVisible }) => {
       onClick={handleClick}
     >
       {/* Glowing background */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${method.gradient} opacity-0 group-hover:opacity-10 group-active:opacity-15 rounded-xl sm:rounded-2xl transition-opacity duration-500`} />
-      
-      {/* Animated border */}
-      <div className="absolute inset-0 rounded-xl sm:rounded-2xl opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-500">
-        <div className={`absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r ${method.gradient} opacity-20 blur-sm animate-pulse`} />
-      </div>
+      <div className="absolute inset-0 bg-red-600/10 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity duration-500" />
 
       <div className="relative z-10 text-center">
-        {/* Icon - responsive sizing */}
-        <div className={`text-3xl sm:text-4xl md:text-5xl mb-3 sm:mb-4 transform transition-all duration-300 ${
+        {/* Icon */}
+        <div className={`text-3xl mb-3 transform transition-all duration-300 ${
           isHovered || (isMobile && isClicked) ? 'scale-125 rotate-12' : 'scale-100'
         }`}>
           {method.icon}
         </div>
 
-        {/* Title - responsive text */}
-        <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-purple-500 group-active:text-transparent group-active:bg-clip-text group-active:bg-gradient-to-r group-active:from-cyan-400 group-active:to-purple-500 transition-all duration-300">
+        {/* Title */}
+        <h3 className="text-lg font-serif font-bold text-white mb-2 group-hover:text-red-400 transition-all duration-300">
           {method.name}
         </h3>
 
-        {/* Value - responsive text and wrapping */}
-        <p className="text-sm sm:text-base text-slate-300 font-medium mb-2 group-hover:text-white group-active:text-white transition-colors duration-300 break-words">
+        {/* Value */}
+        <p className="text-sm text-gray-300 font-serif mb-2 group-hover:text-white transition-colors duration-300 break-words">
           {isMobile && method.value.length > 20 ? 
             (method.name === 'Email' ? 'Send Email' : method.value) : 
             method.value
           }
         </p>
 
-        {/* Description - responsive text */}
-        <p className="text-xs sm:text-sm text-slate-500 group-hover:text-slate-300 group-active:text-slate-300 transition-colors duration-300">
+        {/* Description */}
+        <p className="text-xs text-purple-400 font-serif group-hover:text-cyan-400 transition-colors duration-300">
           {method.description}
         </p>
 
-        {/* Action indicator - mobile optimized */}
-        <div className={`mt-3 sm:mt-4 text-xs text-cyan-400 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-all duration-300 transform ${
+        {/* Action indicator */}
+        <div className={`mt-3 text-xs text-red-400 opacity-0 group-hover:opacity-100 transition-all duration-300 transform ${
           isHovered || (isMobile && isClicked) ? 'translate-y-0' : 'translate-y-2'
         }`}>
           Tap to {method.name === 'Email' ? 'compose' : method.name === 'Phone' ? 'call' : 'open'} →
@@ -190,62 +162,26 @@ const ContactCard = ({ method, index, isVisible }) => {
   );
 };
 
-// Social Link Component - Mobile responsive
-const SocialLink = ({ social, index, isVisible }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const isMobile = useIsMobile();
-
-  return (
-    <a
-      href={social.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`group relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-lg sm:rounded-xl hover:border-cyan-400 active:border-cyan-400 transition-all duration-300 transform hover:scale-110 hover:rotate-12 active:scale-105 active:rotate-6 ${
-        isVisible ? 'animate-fade-in-scale' : 'opacity-0 scale-0'
-      }`}
-      style={{ animationDelay: `${index * 0.1}s` }}
-      onMouseEnter={() => !isMobile && setIsHovered(true)}
-      onMouseLeave={() => !isMobile && setIsHovered(false)}
-    >
-      {/* Glowing background */}
-      <div className={`absolute inset-0 bg-gradient-to-r ${social.gradient} opacity-0 group-hover:opacity-20 group-active:opacity-25 rounded-lg sm:rounded-xl transition-opacity duration-300`} />
-      
-      <span className={`text-lg sm:text-xl transform transition-all duration-300 ${
-        isHovered ? 'scale-125' : 'scale-100'
-      }`}>
-        {social.icon}
-      </span>
-      
-      {/* Tooltip - hidden on mobile */}
-      {!isMobile && (
-        <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
-          {social.name}
-        </div>
-      )}
-    </a>
-  );
-};
-
-// Availability Status Component - Mobile responsive
+// Availability Status Component - Premium Style
 const AvailabilityStatus = ({ isVisible }) => {
   return (
-    <div className={`inline-flex items-center gap-2 sm:gap-3 bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-full px-4 py-2 sm:px-6 sm:py-3 transition-all duration-1000 delay-800 ${
+    <div className={`inline-flex items-center gap-3 bg-gray-900 border border-gray-700 rounded-full px-6 py-3 transition-all duration-1000 delay-800 ${
       isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
     }`}>
       <div className="relative flex-shrink-0">
-        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse" />
-        <div className="absolute inset-0 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-ping opacity-30" />
+        <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+        <div className="absolute inset-0 w-3 h-3 bg-green-500 rounded-full animate-ping opacity-30" />
       </div>
       <div className="text-left">
-        <span className="text-white font-medium text-xs sm:text-sm">{contactConfig.availability.status}</span>
-        <p className="text-slate-400 text-xs hidden sm:block">{contactConfig.availability.message}</p>
+        <span className="text-white font-serif font-medium text-sm">{contactConfig.availability.status}</span>
+        <p className="text-purple-400 text-xs font-serif hidden sm:block">{contactConfig.availability.message}</p>
       </div>
     </div>
   );
 };
 
-// Main Contact Component
-export default function Contact() {
+// Main Contact Component - Premium Black Card Style
+export default function PremiumContact() {
   const [titleRef, titleVisible] = useIntersectionObserver(0.1);
   const [cardsRef, cardsVisible] = useIntersectionObserver(0.1);
   const [socialRef, socialVisible] = useIntersectionObserver(0.1);
@@ -273,115 +209,132 @@ export default function Contact() {
   return (
     <section 
       id="contact" 
-      className="relative py-10 sm:py-16 md:py-20 bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 px-4 sm:px-6 lg:px-8 bg-gray-700"
     >
-      {/* Animated Background Elements - Scaled for mobile */}
-      <div className="absolute inset-0">
-        <div className="absolute top-10 sm:top-20 left-5 sm:left-10 w-16 sm:w-20 h-16 sm:h-20 bg-cyan-500/10 rounded-full blur-xl animate-pulse" />
-        <div className="absolute top-32 sm:top-40 right-10 sm:right-20 w-24 sm:w-32 h-24 sm:h-32 bg-purple-500/10 rounded-full blur-xl animate-pulse delay-1000" />
-        <div className="absolute bottom-10 sm:bottom-20 left-10 sm:left-20 w-20 sm:w-24 h-20 sm:h-24 bg-pink-500/10 rounded-full blur-xl animate-pulse delay-2000" />
+      {/* Floating particles for premium ambiance */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full opacity-20"
+            style={{
+              width: `${2 + Math.random() * 3}px`,
+              height: `${2 + Math.random() * 3}px`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              background: `linear-gradient(45deg, #60a5fa, #a855f7, #ec4899)`,
+              animation: `float ${4 + Math.random() * 6}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 3}s`
+            }}
+          />
+        ))}
       </div>
 
-      {/* Background Pattern */}
-      <div
-        className="absolute inset-0 opacity-50"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-      />
-
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        
-        {/* Section Header - Mobile responsive */}
-        <div ref={titleRef} className="text-center mb-10 sm:mb-16">
-          <FloatingElement delay={0}>
-            <h2 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-3 sm:mb-4 transition-all duration-1000 ${
-              titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}>
-              <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                {contactConfig.title}
-              </span>
-            </h2>
-          </FloatingElement>
+      {/* Main content container - Premium Card */}
+      <div className="relative z-10 w-full max-w-8xl mx-auto">
+        <div className={`transform transition-all duration-1000 `}>
           
-          <FloatingElement delay={0.2}>
-            <p className={`text-lg sm:text-xl md:text-2xl text-slate-400 mb-4 sm:mb-6 px-2 sm:px-0 transition-all duration-1000 delay-200 ${
-              titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}>
-              {contactConfig.subtitle}
-            </p>
-          </FloatingElement>
-          
-          <FloatingElement delay={0.4}>
-            <p className={`text-sm sm:text-base md:text-lg text-slate-300 max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed px-4 sm:px-0 transition-all duration-1000 delay-400 ${
-              titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}>
-              {isMobile ? 
-                "I'm always excited to collaborate on innovative projects. Let's create something amazing together!" :
-                contactConfig.description
-              }
-            </p>
-          </FloatingElement>
+          {/* Premium Black Card */}
+          <div className="bg-black rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-12 relative overflow-hidden border-4 border-gray-800">
+            
+            {/* Subtle inner glow */}
+            <div className="absolute inset-4 border border-gray-700 rounded-2xl pointer-events-none opacity-30"></div>
+            
+            {/* Card Content */}
+            <div className="relative z-10 space-y-6">
+              
+              {/* Section Header */}
+              <div ref={titleRef} className="text-center space-y-3">
+                <div className="inline-block px-6 py-2 bg-red-600 text-white text-sm font-medium tracking-widest uppercase rounded-full shadow-lg">
+                  Get In Touch
+                </div>
+                
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight">
+                  {contactConfig.title}
+                </h2>
+                
+                <div className="w-24 h-1 bg-red-600 mx-auto"></div>
+                
+                <p className="text-lg text-red-500 font-serif font-semibold">
+                  {contactConfig.subtitle}
+                </p>
 
-          {/* Availability Status */}
-          <FloatingElement delay={0.6}>
-            <AvailabilityStatus isVisible={titleVisible} />
-          </FloatingElement>
+                <p className="text-base text-gray-300 max-w-3xl mx-auto leading-relaxed font-serif">
+                  {isMobile ? 
+                    "I'm always excited to collaborate on innovative projects. Let's create something amazing together!" :
+                    contactConfig.description
+                  }
+                </p>
 
-          {/* Current Time in India - Mobile responsive */}
-          <div className={`mt-3 sm:mt-4 text-slate-500 text-xs sm:text-sm transition-all duration-1000 delay-1000 ${
-            titleVisible ? 'opacity-100' : 'opacity-0'
-          }`}>
-            🇮🇳 Current time in Delhi: {formatTime(currentTime)} IST
-          </div>
-        </div>
+                {/* Availability Status */}
+                <AvailabilityStatus isVisible={titleVisible} />
 
-        {/* Contact Methods Grid - Mobile responsive */}
-        <div ref={cardsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10 sm:mb-16 px-2 sm:px-0">
-          {contactConfig.contactMethods.map((method, index) => (
-            <ContactCard
-              key={method.name}
-              method={method}
-              index={index}
-              isVisible={cardsVisible}
-            />
-          ))}
-        </div>
-
-        {/* Response Time Info - Mobile responsive */}
-        <div ref={socialRef} className="text-center">
-          <div className={`bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl sm:rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto transition-all duration-1000 delay-600 ${
-            socialVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4">
-              <span className="text-2xl sm:text-3xl">⚡</span>
-              <div className="text-center sm:text-left">
-                <h4 className="text-lg sm:text-xl font-bold text-white">Quick Response Guaranteed</h4>
-                <p className="text-sm sm:text-base text-slate-400">Average response time: {contactConfig.availability.responseTime}</p>
+                {/* Current Time */}
+                <div className={`text-purple-400 text-sm font-serif transition-all duration-1000 delay-1000 ${
+                  titleVisible ? 'opacity-100' : 'opacity-0'
+                }`}>
+                  Current time in Delhi: {formatTime(currentTime)} IST
+                </div>
               </div>
-            </div>
-            <p className="text-sm sm:text-base text-slate-300 mb-6 leading-relaxed">
-              I believe in clear communication and quick turnarounds. Whether it's a simple question or a complex project discussion, I'll get back to you promptly.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <a
-                href={`mailto:${contactConfig.email}`}
-                className="bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-6 sm:px-8 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-cyan-500/25 active:shadow-lg active:shadow-cyan-500/25 transition-all duration-300 transform hover:scale-105 active:scale-95 text-sm sm:text-base"
-              >
-                Send Email 📧
-              </a>
-              <a
-                href={`https://wa.me/918882423378`}
-                className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 sm:px-8 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-green-500/25 active:shadow-lg active:shadow-green-500/25 transition-all duration-300 transform hover:scale-105 active:scale-95 text-sm sm:text-base"
-              >
-                WhatsApp Me 💬
-              </a>
+
+              {/* Contact Methods Grid */}
+              <div ref={cardsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                {contactConfig.contactMethods.map((method, index) => (
+                  <ContactCard
+                    key={method.name}
+                    method={method}
+                    index={index}
+                    isVisible={cardsVisible}
+                  />
+                ))}
+              </div>
+
+              {/* Response Time Info */}
+              <div ref={socialRef} className="text-center">
+                <div className={`bg-gray-900 border border-gray-700 rounded-xl p-6 max-w-2xl mx-auto transition-all duration-1000 delay-600 ${
+                  socialVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}>
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4">
+                    <span className="text-2xl">⚡</span>
+                    <div className="text-center sm:text-left">
+                      <h4 className="text-lg font-serif font-bold text-cyan-400">Quick Response Guaranteed</h4>
+                      <p className="text-sm text-purple-400 font-serif">Average response time: {contactConfig.availability.responseTime}</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-300 mb-6 leading-relaxed font-serif">
+                    I believe in clear communication and quick turnarounds. Whether it's a simple question or a complex project discussion, I'll get back to you promptly.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <a
+                      href={`mailto:${contactConfig.email}`}
+                      className="bg-red-600 text-white px-6 py-3 rounded-xl font-serif font-semibold hover:bg-red-700 transition-all duration-300 transform hover:scale-105 text-sm shadow-xl shadow-red-600/30"
+                    >
+                      Send Email
+                    </a>
+                    <a
+                      href={`https://wa.me/918882423378`}
+                      className="bg-transparent border-2 border-purple-500 text-purple-400 px-6 py-3 rounded-xl font-serif font-semibold hover:bg-purple-500 hover:text-white transition-all duration-300 transform hover:scale-105 text-sm"
+                    >
+                      WhatsApp Me
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Professional Footer */}
+              <div className="border-t border-gray-700 pt-4 mt-6">
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-xs font-serif">
+                  <div className="text-cyan-400">Always Available</div>
+                  <div className="text-purple-400">Quick Response Time</div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
 
-      {/* Custom CSS for animations - Mobile optimized */}
+      {/* Custom CSS for animations */}
       <style jsx>{`
         @keyframes fade-in-up {
           from {
@@ -394,36 +347,13 @@ export default function Contact() {
           }
         }
         
-        @keyframes fade-in-scale {
-          from {
-            opacity: 0;
-            transform: scale(0);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-        
         @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(${isMobile ? '-5px' : '-10px'});
-          }
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(180deg); }
         }
         
         .animate-fade-in-up {
           animation: fade-in-up 0.8s ease-out forwards;
-        }
-        
-        .animate-fade-in-scale {
-          animation: fade-in-scale 0.5s ease-out forwards;
-        }
-        
-        .animate-float {
-          animation: float ${isMobile ? '4s' : '3s'} ease-in-out infinite;
         }
 
         /* Touch feedback improvements */
@@ -446,5 +376,3 @@ export default function Contact() {
     </section>
   );
 }
-
-{/* <header class="fixed top-0 w-full z-50 transition-all duration-500 backdrop-blur-xl bg-black/80 border-b border-blue-500/20 shadow-2xl shadow-blue-500/10" style="transform: none;"></header> */}

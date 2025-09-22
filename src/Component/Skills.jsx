@@ -70,7 +70,7 @@ const useIntersectionObserver = (threshold = 0.1) => {
   return [ref, isIntersecting];
 };
 
-// Simple Skill Badge Component with mobile optimization
+// Premium Skill Badge Component
 const SkillBadge = ({ skill, index, isDragging }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -83,34 +83,34 @@ const SkillBadge = ({ skill, index, isDragging }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Glowing background effect */}
-      <div className={`absolute inset-0 bg-gradient-to-r ${skill.color} rounded-xl sm:rounded-2xl blur-sm transition-opacity duration-300 ${
+      <div className={`absolute inset-0 bg-gradient-to-r ${skill.color} rounded-xl blur-sm transition-opacity duration-300 ${
         isDragging ? 'opacity-40' : 'opacity-0 group-hover:opacity-60'
       }`} />
       
-      {/* Main badge - responsive sizing */}
-      <div className={`relative bg-slate-800/90 backdrop-blur-sm border rounded-xl sm:rounded-2xl px-3 py-3 sm:px-6 sm:py-4 shadow-lg transition-all duration-300 ${
-        isDragging ? 'border-cyan-400' : 'border-slate-700 group-hover:border-transparent'
+      {/* Main badge - Premium style */}
+      <div className={`relative bg-gray-900 backdrop-blur-sm border rounded-xl px-3 py-3 sm:px-4 sm:py-4 shadow-lg transition-all duration-300 ${
+        isDragging ? 'border-red-400' : 'border-gray-700 group-hover:border-cyan-400'
       }`}>
         {/* Gradient overlay */}
-        <div className={`absolute inset-0 bg-gradient-to-r ${skill.color} rounded-xl sm:rounded-2xl transition-opacity duration-300 ${
+        <div className={`absolute inset-0 bg-gradient-to-r ${skill.color} rounded-xl transition-opacity duration-300 ${
           isDragging ? 'opacity-15' : 'opacity-0 group-hover:opacity-20'
         }`} />
         
-        {/* Content - responsive layout */}
-        <div className="relative z-10 flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center gap-2">
           <span className={`text-lg sm:text-2xl transform transition-transform duration-300 ${
             isHovered || isDragging ? 'scale-125 rotate-12' : 'scale-100'
           }`}>
             {skill.icon}
           </span>
-          <div className="text-center sm:text-left">
-            <span className={`block font-semibold text-sm sm:text-lg transition-all duration-300 ${
-              isDragging ? 'text-cyan-300' : 'text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-cyan-300'
+          <div className="text-center">
+            <span className={`block font-serif font-semibold text-sm transition-all duration-300 ${
+              isDragging ? 'text-red-400' : 'text-white group-hover:text-cyan-400'
             }`}>
               {skill.name}
             </span>
-            <div className="flex items-center justify-center sm:justify-start gap-2 mt-1">
-              <div className="w-8 sm:w-12 h-1 bg-slate-600 rounded-full overflow-hidden">
+            <div className="flex items-center justify-center gap-1 mt-1">
+              <div className="w-8 h-1 bg-gray-700 rounded-full overflow-hidden">
                 <div 
                   className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ${
                     isDragging ? 'animate-pulse' : ''
@@ -118,8 +118,8 @@ const SkillBadge = ({ skill, index, isDragging }) => {
                   style={{ width: `${skill.level}%` }}
                 />
               </div>
-              <span className={`text-xs transition-colors duration-300 ${
-                isDragging ? 'text-cyan-400' : 'text-slate-400'
+              <span className={`text-xs transition-colors duration-300 font-serif ${
+                isDragging ? 'text-red-400' : 'text-purple-400'
               }`}>
                 {skill.level}%
               </span>
@@ -149,8 +149,8 @@ const useIsMobile = () => {
   return isMobile;
 };
 
-// Main Skills Component
-export default function Skills() {
+// Main Skills Component - Premium Black Card Style
+export default function PremiumSkills() {
   const [titleRef, titleVisible] = useIntersectionObserver(0.1);
   const [scrollRef, scrollVisible] = useIntersectionObserver(0.1);
   const [summaryRef, summaryVisible] = useIntersectionObserver(0.1);
@@ -169,7 +169,7 @@ export default function Skills() {
   // Create duplicated array for seamless infinite scroll
   const duplicatedSkills = [...allSkills, ...allSkills, ...allSkills];
 
-  // Handle drag start - improved for mobile
+  // Handle drag start
   const handleDragStart = (e) => {
     setIsDragging(true);
     setIsAutoScrolling(false);
@@ -182,7 +182,7 @@ export default function Skills() {
     e.preventDefault();
   };
 
-  // Handle drag move - optimized for mobile
+  // Handle drag move
   const handleDragMove = (e) => {
     if (!isDragging) return;
     
@@ -192,12 +192,10 @@ export default function Skills() {
     const deltaTime = currentTime - lastMoveTime;
     const deltaX = clientX - lastPosition;
     
-    // Improved sensitivity for mobile vs desktop
     const sensitivity = isMobile ? 0.8 : 0.5;
     const newPosition = dragPosition + deltaX * sensitivity;
     setDragPosition(newPosition);
     
-    // Calculate velocity for momentum (improved for mobile)
     if (deltaTime > 0) {
       const newVelocity = deltaX / deltaTime * (isMobile ? 15 : 10);
       setVelocity(newVelocity);
@@ -207,11 +205,10 @@ export default function Skills() {
     setLastMoveTime(currentTime);
   };
 
-  // Handle drag end with improved momentum
+  // Handle drag end with momentum
   const handleDragEnd = () => {
     setIsDragging(false);
     
-    // Apply momentum with better mobile handling
     let momentum = velocity;
     const decay = isMobile ? 0.92 : 0.95;
     const minMomentum = isMobile ? 0.2 : 0.1;
@@ -223,7 +220,6 @@ export default function Skills() {
       if (Math.abs(momentum) < minMomentum) {
         clearInterval(momentumInterval);
         setVelocity(0);
-        // Resume auto-scrolling after momentum stops
         setTimeout(() => {
           setIsAutoScrolling(true);
         }, isMobile ? 800 : 500);
@@ -240,7 +236,7 @@ export default function Skills() {
 
     const checkScroll = () => {
       const containerWidth = scrollContainer.offsetWidth;
-      const skillWidth = isMobile ? 120 : 200; // Approximate skill badge width
+      const skillWidth = isMobile ? 120 : 160;
       const totalSkillsWidth = allSkills.length * skillWidth;
 
       if (Math.abs(dragPosition) >= totalSkillsWidth) {
@@ -255,142 +251,154 @@ export default function Skills() {
   return (
     <section 
       id="skills" 
-      className="relative py-10 sm:py-20 bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 px-4 sm:px-6 lg:px-8 bg-gray-700"
     >
-      {/* Background Elements */}
-      <div
-        className="absolute inset-0 opacity-50"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-      />
-
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        {/* Section Header - Mobile responsive */}
-        <div ref={titleRef} className="text-center mb-8 sm:mb-16">
-          <h2
-            className={`text-2xl sm:text-3xl md:text-5xl font-black mb-3 sm:mb-4 transition-all duration-1000 ${
-              titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              {skillsConfig.title}
-            </span>
-          </h2>
-          <p
-            className={`text-sm sm:text-base md:text-xl text-slate-400 mb-4 sm:mb-8 px-4 sm:px-0 transition-all duration-1000 delay-200 ${
-              titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            {skillsConfig.subtitle}
-          </p>
-        </div>
-
-        {/* Draggable Scrolling Skills - Mobile optimized */}
-        <div 
-          ref={scrollRef} 
-          className={`mb-12 sm:mb-20 transition-all duration-1000 ${
-            scrollVisible ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          <div 
-            ref={scrollContainerRef}
-            className="relative overflow-hidden py-4 sm:py-8 select-none"
-            onMouseDown={handleDragStart}
-            onMouseMove={handleDragMove}
-            onMouseUp={handleDragEnd}
-            onMouseLeave={handleDragEnd}
-            onTouchStart={handleDragStart}
-            onTouchMove={handleDragMove}
-            onTouchEnd={handleDragEnd}
-            onTouchCancel={handleDragEnd}
-            style={{ 
-              cursor: isDragging ? 'grabbing' : 'grab',
-              touchAction: 'none'
+      {/* Floating particles for premium ambiance */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full opacity-20"
+            style={{
+              width: `${2 + Math.random() * 3}px`,
+              height: `${2 + Math.random() * 3}px`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              background: `linear-gradient(45deg, #60a5fa, #a855f7, #ec4899)`,
+              animation: `float ${4 + Math.random() * 6}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 3}s`
             }}
-          >
-            {/* Scrolling container with drag control */}
-            <div 
-              className={`flex transition-transform ${
-                isAutoScrolling && !isDragging ? 'duration-100' : 'duration-200'
-              } ${
-                isAutoScrolling && !isDragging ? 'animate-scroll' : ''
-              }`}
-              style={{
-                transform: `translateX(${dragPosition}px)`,
-                animationPlayState: isDragging ? 'paused' : 'running'
-              }}
-            >
-              {duplicatedSkills.map((skill, index) => (
-                <SkillBadge
-                  key={`${skill.name}-${index}`}
-                  skill={skill}
-                  index={index}
-                  isDragging={isDragging}
-                />
-              ))}
-            </div>
+          />
+        ))}
+      </div>
+
+      {/* Main content container - Premium Card */}
+      <div className="relative z-10 w-full max-w-8xl mx-auto">
+        <div className={`transform transition-all duration-1000 ${titleVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          
+          {/* Premium Black Card */}
+          <div className="bg-black rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-12 relative overflow-hidden border-4 border-gray-800">
             
-            {/* Enhanced gradient overlays - responsive */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-slate-900 to-transparent pointer-events-none z-10" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-slate-900 to-transparent pointer-events-none z-10" />
+            {/* Subtle inner glow */}
+            <div className="absolute inset-4 border border-gray-700 rounded-2xl pointer-events-none opacity-30"></div>
             
-            {/* Drag indication lines - mobile friendly */}
-            {isDragging && (
-              <div className="absolute inset-0 pointer-events-none z-20">
-                <div className="w-full h-full opacity-20">
+            {/* Card Content */}
+            <div className="relative z-10 space-y-6">
+              
+              {/* Section Header */}
+              <div ref={titleRef} className="text-center space-y-3">
+                <div className="inline-block px-6 py-2 bg-red-600 text-white text-sm font-medium tracking-widest uppercase rounded-full shadow-lg">
+                  Technical Expertise
+                </div>
+                
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight">
+                  {skillsConfig.title}
+                </h2>
+                
+                <div className="w-24 h-1 bg-red-600 mx-auto"></div>
+                
+                <p className="text-lg text-red-500 font-serif font-semibold">
+                  {skillsConfig.subtitle}
+                </p>
+              </div>
+
+              {/* Interactive Skills Carousel */}
+              <div 
+                ref={scrollRef} 
+                className={`transition-all duration-1000 ${
+                  scrollVisible ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
+                <div 
+                  ref={scrollContainerRef}
+                  className="relative overflow-hidden py-6 select-none"
+                  onMouseDown={handleDragStart}
+                  onMouseMove={handleDragMove}
+                  onMouseUp={handleDragEnd}
+                  onMouseLeave={handleDragEnd}
+                  onTouchStart={handleDragStart}
+                  onTouchMove={handleDragMove}
+                  onTouchEnd={handleDragEnd}
+                  onTouchCancel={handleDragEnd}
+                  style={{ 
+                    cursor: isDragging ? 'grabbing' : 'grab',
+                    touchAction: 'none'
+                  }}
+                >
+                  {/* Scrolling container */}
                   <div 
-                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 sm:w-20 h-px bg-cyan-400"
+                    className={`flex transition-transform ${
+                      isAutoScrolling && !isDragging ? 'duration-100' : 'duration-200'
+                    } ${
+                      isAutoScrolling && !isDragging ? 'animate-scroll' : ''
+                    }`}
                     style={{
-                      transform: `translateX(${dragPosition * 0.3}px) translateY(-50%)`,
+                      transform: `translateX(${dragPosition}px)`,
+                      animationPlayState: isDragging ? 'paused' : 'running'
                     }}
-                  />
-                  <div 
-                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-px h-12 sm:h-20 bg-cyan-400"
-                    style={{
-                      transform: `translateX(${dragPosition * 0.3}px) translateY(-50%)`,
-                    }}
-                  />
+                  >
+                    {duplicatedSkills.map((skill, index) => (
+                      <SkillBadge
+                        key={`${skill.name}-${index}`}
+                        skill={skill}
+                        index={index}
+                        isDragging={isDragging}
+                      />
+                    ))}
+                  </div>
+                  
+                  {/* Gradient overlays */}
+                  <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-black to-transparent pointer-events-none z-10" />
+                  <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-black to-transparent pointer-events-none z-10" />
                 </div>
               </div>
-            )}
-          </div>
-        </div>
 
-        {/* Skills Summary - Mobile responsive */}
-        <div 
-          ref={summaryRef}
-          className={`text-center transition-all duration-1000 ${
-            summaryVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl sm:rounded-2xl p-4 sm:p-8 max-w-3xl mx-auto">
-            <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
-              Always Learning, Always Growing
-            </h3>
-            <p className="text-sm sm:text-base text-slate-300 mb-4 sm:mb-6 leading-relaxed">
-              Technology evolves rapidly, and so do I. I'm constantly expanding my skill set, 
-              exploring new frameworks, and mastering emerging technologies to deliver cutting-edge solutions.
-              <span className="block mt-2 sm:mt-3 text-cyan-400 font-semibold text-xs sm:text-sm">
-                💡 Pro tip: {isMobile ? 'Swipe' : 'Click and drag'} the skills to control their movement!
-              </span>
-            </p>
-            <div className="flex justify-center gap-2 sm:gap-4 flex-wrap">
-              <span className="bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-3 py-2 sm:px-6 sm:py-2 rounded-full font-semibold text-xs sm:text-sm">
-                {allSkills.length}+ Technologies
-              </span>
-              <span className="bg-gradient-to-r from-green-500 to-teal-600 text-white px-3 py-2 sm:px-6 sm:py-2 rounded-full font-semibold text-xs sm:text-sm">
-                Full Stack Ready
-              </span>
-              <span className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-3 py-2 sm:px-6 sm:py-2 rounded-full font-semibold text-xs sm:text-sm">
-                Interactive Control
-              </span>
+              {/* Skills Summary */}
+              <div 
+                ref={summaryRef}
+                className={`text-center transition-all duration-1000 ${
+                  summaryVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+              >
+                <div className="bg-gray-900 border border-gray-700 rounded-xl p-6 max-w-3xl mx-auto">
+                  <h3 className="text-xl font-serif font-bold text-cyan-400 mb-3">
+                    Always Learning, Always Growing
+                  </h3>
+                  <p className="text-sm text-gray-300 mb-4 leading-relaxed font-serif">
+                    Technology evolves rapidly, and so do I. I'm constantly expanding my skill set, 
+                    exploring new frameworks, and mastering emerging technologies to deliver cutting-edge solutions.
+                  </p>
+                  <p className="text-xs text-purple-400 font-serif mb-4">
+                    💡 Pro tip: {isMobile ? 'Swipe' : 'Click and drag'} the skills to control their movement!
+                  </p>
+                  <div className="flex justify-center gap-2 flex-wrap">
+                    <span className="bg-red-600 text-white px-3 py-1 rounded-full font-serif font-semibold text-xs">
+                      {allSkills.length}+ Technologies
+                    </span>
+                    <span className="bg-cyan-600 text-white px-3 py-1 rounded-full font-serif font-semibold text-xs">
+                      Full Stack Ready
+                    </span>
+                    <span className="bg-purple-600 text-white px-3 py-1 rounded-full font-serif font-semibold text-xs">
+                      Interactive Control
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Professional Footer */}
+              <div className="border-t border-gray-700 pt-4 mt-6">
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-xs font-serif">
+                  <div className="text-cyan-400">Continuous Learning</div>
+                  <div className="text-purple-400">Modern Technologies</div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
 
-      {/* Custom CSS for animations - with mobile optimization */}
+      {/* Custom CSS for animations */}
       <style jsx>{`
         @keyframes scroll {
           0% {
@@ -401,26 +409,15 @@ export default function Skills() {
           }
         }
         
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(180deg); }
         }
         
         .animate-scroll {
           animation: scroll ${isMobile ? '40s' : '30s'} linear infinite;
         }
-        
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-        }
 
-        /* Improved touch handling for mobile */
         @media (max-width: 768px) {
           .animate-scroll {
             animation-duration: 40s;
