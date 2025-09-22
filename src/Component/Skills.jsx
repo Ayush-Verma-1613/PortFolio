@@ -42,7 +42,7 @@ const skillsConfig = {
 const allSkills = Object.values(skillsConfig.skillCategories).flat();
 
 // Intersection Observer Hook
-const useIntersectionObserver = (threshold = 0.1) => {
+const useIntersectionObserver = (threshold = 0.01) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const ref = useRef(null);
 
@@ -151,9 +151,9 @@ const useIsMobile = () => {
 
 // Main Skills Component - Premium Black Card Style
 export default function PremiumSkills() {
-  const [titleRef, titleVisible] = useIntersectionObserver(0.1);
-  const [scrollRef, scrollVisible] = useIntersectionObserver(0.1);
-  const [summaryRef, summaryVisible] = useIntersectionObserver(0.1);
+  const [titleRef, titleVisible] = useIntersectionObserver(0.01);
+  const [scrollRef, scrollVisible] = useIntersectionObserver(0.01);
+  const [summaryRef, summaryVisible] = useIntersectionObserver(0.01);
   const isMobile = useIsMobile();
   
   // Drag control states
@@ -211,7 +211,7 @@ export default function PremiumSkills() {
     
     let momentum = velocity;
     const decay = isMobile ? 0.92 : 0.95;
-    const minMomentum = isMobile ? 0.2 : 0.1;
+    const minMomentum = isMobile ? 0.2 : 0.01;
     
     const momentumInterval = setInterval(() => {
       setDragPosition((prev) => prev + momentum);

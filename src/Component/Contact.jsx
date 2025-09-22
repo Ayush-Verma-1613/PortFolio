@@ -182,9 +182,9 @@ const AvailabilityStatus = ({ isVisible }) => {
 
 // Main Contact Component - Premium Black Card Style
 export default function PremiumContact() {
-  const [titleRef, titleVisible] = useIntersectionObserver(0.1);
-  const [cardsRef, cardsVisible] = useIntersectionObserver(0.1);
-  const [socialRef, socialVisible] = useIntersectionObserver(0.1);
+  const [titleRef, titleVisible] = useIntersectionObserver(0.01);
+  const [cardsRef, cardsVisible] = useIntersectionObserver(0.01);
+  const [socialRef, socialVisible] = useIntersectionObserver(0.01);
   const [currentTime, setCurrentTime] = useState(new Date());
   const isMobile = useIsMobile();
 
@@ -353,7 +353,7 @@ export default function PremiumContact() {
         }
         
         .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
+          animation: fade-in-up 0.3s ease-out forwards;
         }
 
         /* Touch feedback improvements */

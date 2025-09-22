@@ -23,7 +23,7 @@ const aboutConfig = {
 };
 
 // Intersection Observer Hook for animations
-const useIntersectionObserver = (threshold = 0.1) => {
+const useIntersectionObserver = (threshold = 0.01) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const ref = useRef(null);
 
@@ -220,7 +220,7 @@ export default function PremiumAbout() {
                     {aboutConfig.skills.map((skill, index) => (
                       <div key={skill.name} className={`transition-all duration-1000 ${
                         skillsVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-                      }`} style={{ animationDelay: `${index * 0.2}s` }}>
+                      }`} style={{ animationDelay: `${index * 0.5}s` }}>
                         <SkillBar
                           skill={skill}
                           index={index}
@@ -289,7 +289,7 @@ export default function PremiumAbout() {
         }
         
         .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
+          animation: fade-in-up 0.3s ease-out forwards;
         }
       `}</style>
     </section>

@@ -9,7 +9,7 @@ const footerConfig = {
 };
 
 // Intersection Observer Hook
-const useIntersectionObserver = (threshold = 0.1) => {
+const useIntersectionObserver = (threshold = 0.01) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const ref = useRef(null);
 
@@ -71,7 +71,7 @@ const BackToTop = () => {
 
 // Main Footer Component - Premium Black Card Style - Sticky to Bottom
 export default function PremiumFooter() {
-  const [footerRef, footerVisible] = useIntersectionObserver(0.1);
+  const [footerRef, footerVisible] = useIntersectionObserver(0.01);
   const [currentYear] = useState(new Date().getFullYear());
 
   return (
