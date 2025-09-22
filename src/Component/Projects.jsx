@@ -151,7 +151,7 @@ const ProjectCard = ({ project, index, isVisible, isExpanded, onToggle }) => {
       className={`group relative bg-gray-900 border border-gray-700 rounded-xl overflow-hidden hover:border-red-600 transition-all duration-500 transform hover:scale-[1.02] ${
         isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
       }`}
-      style={{ animationDelay: `${index * 0.2}s` }}
+      style={{ animationDelay: `${index * 0.5}s` }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -262,8 +262,8 @@ const FilterButton = ({ category, isActive, onClick, count }) => (
 
 // Main Projects Component - Premium Black Card Style
 export default function PremiumProjects() {
-  const [titleRef, titleVisible] = useIntersectionObserver(0.1);
-  const [projectsRef, projectsVisible] = useIntersectionObserver(0.1);
+  const [titleRef, titleVisible] = useIntersectionObserver(0.01);
+  const [projectsRef, projectsVisible] = useIntersectionObserver(0.01);
   const [activeFilter, setActiveFilter] = useState("All");
   const [expandedProjects, setExpandedProjects] = useState(new Set());
 
@@ -427,7 +427,7 @@ export default function PremiumProjects() {
         }
         
         .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
+          animation: fade-in-up 0.3s ease-out forwards;
         }
         
         .animate-fade-in {
