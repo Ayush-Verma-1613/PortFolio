@@ -167,7 +167,7 @@ export default function PremiumSkills() {
   const scrollContainerRef = useRef(null);
 
   // Create duplicated array for seamless infinite scroll
-  const duplicatedSkills = [...allSkills, ...allSkills, ...allSkills];
+  const duplicatedSkills = [...allSkills, ...allSkills, ...allSkills, ...allSkills];
 
   // Handle drag start
   const handleDragStart = (e) => {
@@ -192,12 +192,12 @@ export default function PremiumSkills() {
     const deltaTime = currentTime - lastMoveTime;
     const deltaX = clientX - lastPosition;
     
-    const sensitivity = isMobile ? 0.8 : 0.5;
+    const sensitivity = isMobile ? 1.2 : 0.8;
     const newPosition = dragPosition + deltaX * sensitivity;
     setDragPosition(newPosition);
     
     if (deltaTime > 0) {
-      const newVelocity = deltaX / deltaTime * (isMobile ? 15 : 10);
+      const newVelocity = deltaX / deltaTime * (isMobile ? 20 : 12);
       setVelocity(newVelocity);
     }
     
@@ -210,8 +210,8 @@ export default function PremiumSkills() {
     setIsDragging(false);
     
     let momentum = velocity;
-    const decay = isMobile ? 0.92 : 0.95;
-    const minMomentum = isMobile ? 0.2 : 0.01;
+    const decay = isMobile ? 0.90 : 0.95;
+    const minMomentum = isMobile ? 0.3 : 0.1;
     
     const momentumInterval = setInterval(() => {
       setDragPosition((prev) => prev + momentum);
@@ -222,7 +222,7 @@ export default function PremiumSkills() {
         setVelocity(0);
         setTimeout(() => {
           setIsAutoScrolling(true);
-        }, isMobile ? 800 : 500);
+        }, isMobile ? 400 : 600);
       }
     }, 16);
   };
@@ -236,7 +236,7 @@ export default function PremiumSkills() {
 
     const checkScroll = () => {
       const containerWidth = scrollContainer.offsetWidth;
-      const skillWidth = isMobile ? 120 : 160;
+      const skillWidth = isMobile ? 100 : 140;
       const totalSkillsWidth = allSkills.length * skillWidth;
 
       if (Math.abs(dragPosition) >= totalSkillsWidth) {
@@ -244,7 +244,7 @@ export default function PremiumSkills() {
       }
     };
 
-    const interval = setInterval(checkScroll, 100);
+    const interval = setInterval(checkScroll, 50);
     return () => clearInterval(interval);
   }, [isAutoScrolling, isDragging, dragPosition, isMobile]);
 
@@ -327,10 +327,8 @@ export default function PremiumSkills() {
                 >
                   {/* Scrolling container */}
                   <div 
-                    className={`flex transition-transform ${
-                      isAutoScrolling && !isDragging ? 'duration-100' : 'duration-200'
-                    } ${
-                      isAutoScrolling && !isDragging ? 'animate-scroll' : ''
+                    className={`flex will-change-transform ${
+                      isAutoScrolling && !isDragging ? 'animate-scroll-fast' : ''
                     }`}
                     style={{
                       transform: `translateX(${dragPosition}px)`,
@@ -348,8 +346,8 @@ export default function PremiumSkills() {
                   </div>
                   
                   {/* Gradient overlays */}
-                  <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-black to-transparent pointer-events-none z-10" />
-                  <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-black to-transparent pointer-events-none z-10" />
+                  <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-r from-black to-transparent pointer-events-none z-10" />
+                  <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-l from-black to-transparent pointer-events-none z-10" />
                 </div>
               </div>
 
@@ -398,14 +396,14 @@ export default function PremiumSkills() {
         </div>
       </div>
 
-      {/* Custom CSS for animations */}
+      {/* Custom CSS for fast linear animations */}
       <style jsx>{`
-        @keyframes scroll {
+        @keyframes scroll-fast {
           0% {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-33.33%);
+            transform: translateX(-25%);
           }
         }
         
@@ -414,13 +412,28 @@ export default function PremiumSkills() {
           50% { transform: translateY(-20px) rotate(180deg); }
         }
         
-        .animate-scroll {
-          animation: scroll ${isMobile ? '40s' : '30s'} linear infinite;
+        .animate-scroll-fast {
+          animation: scroll-fast linear infinite;
+          animation-duration: ${isMobile ? '15s' : '25s'};
         }
 
+        /* Optimizations for mobile */
         @media (max-width: 768px) {
-          .animate-scroll {
-            animation-duration: 40s;
+          .animate-scroll-fast {
+            animation-duration: 12s !important;
+          }
+          
+          .will-change-transform {
+            will-change: transform;
+            backface-visibility: hidden;
+            perspective: 1000px;
+          }
+        }
+        
+        /* Extra fast for very small screens */
+        @media (max-width: 480px) {
+          .animate-scroll-fast {
+            animation-duration: 10s !important;
           }
         }
       `}</style>
