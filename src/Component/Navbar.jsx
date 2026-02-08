@@ -21,19 +21,18 @@ const navigationConfig = [
   { name: "Contact", href: "#contact", icon: Mail },
 ];
 
-// NavLink Component - Simplified without animation
-const NavLink = ({ item, onClick }) => {
+// NavLink Component
+const NavLink = ({ item, onClick, isActive }) => {
   const IconComponent = item.icon;
   
   const handleClick = (e) => {
     e.preventDefault();
     
-    // Handle smooth scroll with reduced offset for fixed navbar
-    const targetId = item.href.substring(1); // Remove # from href
+    const targetId = item.href.substring(1);
     const targetElement = document.getElementById(targetId);
     
     if (targetElement) {
-      const navbarHeight = 80; // Reduced height for less spacing
+      const navbarHeight = 80;
       const elementPosition = targetElement.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
 
@@ -50,7 +49,11 @@ const NavLink = ({ item, onClick }) => {
     <a 
       href={item.href}
       onClick={handleClick}
-      className="nav-btn flex items-center gap-2 px-4 py-3 rounded-lg hover:bg-blue-500/20 transition-all duration-200 group text-white font-medium"
+      className={`nav-btn flex items-center gap-2 px-4 py-3 rounded-lg transition-all duration-200 group font-medium ${
+        isActive 
+          ? "text-amber-400 font-bold underline" 
+          : "text-gray-100 hover:text-amber-400"
+      }`}
     >
       <IconComponent size={18} className="group-hover:scale-110 transition-transform" />
       <span>{item.name}</span>
@@ -70,37 +73,6 @@ const ResumeButton = ({ onClick, isMobile }) => (
     <span>Resume</span>
   </button>
 );
-
-// Logo
-const Logo = () => {
-  const handleClick = (e) => {
-    e.preventDefault();
-    const targetElement = document.getElementById("home");
-    if (targetElement) {
-      const navbarHeight = 80;
-      const elementPosition = targetElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
-  };
-
-  return (
-    <a 
-      href="#home" 
-      onClick={handleClick}
-      className="flex items-center gap-2 cursor-pointer"
-    >
-      <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-        <Code size={20} className="text-white" />
-      </div>
-      <h1 className="text-xl md:text-2xl font-bold text-white">MERN Dev</h1>
-    </a>
-  );
-};
 
 // Resume Not Available Card
 const ResumeNotAvailableCard = () => (
@@ -127,7 +99,6 @@ const ResumeModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black z-50" style={{ width: '100vw', height: '100vh' }}>
-      {/* Close Button */}
       <div className="absolute top-4 right-4 z-20">
         <button
           onClick={onClose}
@@ -139,7 +110,6 @@ const ResumeModal = ({ isOpen, onClose }) => {
         </button>
       </div>
 
-      {/* Download Button */}
       <div className="absolute top-4 left-4 z-20">
         <a
           href={resumePath}
@@ -152,7 +122,6 @@ const ResumeModal = ({ isOpen, onClose }) => {
         </a>
       </div>
 
-      {/* Modal Content */}
       <div className="w-full h-full">
         {resumeError ? (
           <div className="w-full h-full flex items-center justify-center">
@@ -185,93 +154,97 @@ const ResumeModal = ({ isOpen, onClose }) => {
 export default function Navbar() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+
+  // Track active section on scroll
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const sections = navigationConfig.map(item => item.href.substring(1));
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const offsetHeight = element.offsetHeight;
+          
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleResumeClick = (e) => {
     e.preventDefault();
     setIsResumeOpen(true);
-    setIsMobileMenuOpen(false); // close mobile menu if open
+    setIsMobileMenuOpen(false);
   };
 
   return (
     <>
       <style>
         {`
-          .nav-container {
-            position: relative;
-          }
-          
-          .nav-content {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-          }
-          
-          .nav-btn:hover {
-            transform: translateY(-1px);
-          }
-
-          /* Reduced scroll padding for less spacing */
           html {
             scroll-padding-top: 80px;
           }
 
-          /* Reduced scroll margin for sections */
           section {
             scroll-margin-top: 80px;
           }
         `}
       </style>
 
-      <header className="fixed top-0 w-full z-50 transition-all duration-500 backdrop-blur-xl bg-black/80 border-b border-blue-500/20 shadow-2xl shadow-blue-500/10">
-        <nav className="nav-container relative">
-          <div className="nav-content container mx-auto flex justify-between items-center p-4 rounded-lg mx-4 my-2 relative z-10">
-            <Logo />
+      <header className="fixed top-0 w-full z-50 py-4 md:py-8 px-4 md:px-8">
+        <nav className="relative flex justify-center items-center">
+          {/* Desktop Centered Oval Menu */}
+          <div className="hidden lg:flex bg-gray-900 gap-4 xl:gap-6 shadow-lg items-center border border-gray-200 px-6 xl:px-8 py-3 rounded-full">
+            {navigationConfig.map((item) => (
+              <NavLink 
+                key={item.name} 
+                item={item}
+                isActive={activeSection === item.href.substring(1)}
+              />
+            ))}
+            <ResumeButton onClick={handleResumeClick} />
+          </div>
 
-            {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-6">
-              <div className="flex space-x-2">
-                {navigationConfig.map((item) => (
-                  <NavLink 
-                    key={item.name} 
-                    item={item}
-                  />
-                ))}
-              </div>
-              <ResumeButton onClick={handleResumeClick} />
-            </div>
-
-            {/* Mobile Hamburger */}
-            <button 
-              className="md:hidden p-2 rounded-lg hover:bg-blue-500/20 text-white transition-colors"
+          {/* Mobile Menu Button - Top Right Corner */}
+          <div className="lg:hidden absolute right-0 top-0">
+            <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="bg-gray-900 text-gray-100 p-3 rounded-full hover:bg-gray-800 transition-colors border border-gray-200 shadow-lg"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
-
-          {/* SVG Animation Overlay - REMOVED */}
-
-          {/* Mobile Dropdown */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden mt-2 mx-4 bg-black/90 backdrop-blur-sm rounded-lg shadow-lg border border-blue-500/30">
-              <ul className="flex flex-col divide-y divide-blue-500/20">
-                {navigationConfig.map((item) => (
-                  <NavLink key={item.name} item={item} onClick={() => setIsMobileMenuOpen(false)} />
-                ))}
-              </ul>
-              <div className="p-4">
-                <ResumeButton onClick={handleResumeClick} isMobile />
-              </div>
-            </div>
-          )}
         </nav>
+
+        {/* Mobile Dropdown - Positioned from top right */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden absolute right-4 top-20 bg-gray-900 rounded-2xl shadow-xl border border-gray-200 py-4 px-2 space-y-2 min-w-[250px]">
+            {navigationConfig.map((item) => (
+              <NavLink 
+                key={item.name} 
+                item={item} 
+                onClick={() => setIsMobileMenuOpen(false)}
+                isActive={activeSection === item.href.substring(1)}
+              />
+            ))}
+            <div className="px-2">
+              <ResumeButton onClick={handleResumeClick} isMobile />
+            </div>
+          </div>
+        )}
 
         {/* Resume Modal */}
         <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
       </header>
-
-      
-
     </>
   );
 }

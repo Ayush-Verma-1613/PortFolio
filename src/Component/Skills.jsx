@@ -7,6 +7,7 @@ const skillsConfig = {
   skillCategories: {
     "Frontend": [
       { name: "React", icon: "⚛️", color: "from-blue-400 to-cyan-500", level: 95 },
+      { name: "Next.js", icon: "▲", color: "from-gray-300 to-gray-500", level: 90 },
       { name: "JavaScript", icon: "🟨", color: "from-yellow-400 to-orange-500", level: 92 },
       { name: "TailwindCSS", icon: "🎨", color: "from-cyan-400 to-blue-600", level: 90 },
       { name: "HTML5", icon: "🧡", color: "from-orange-500 to-red-500", level: 95 },
@@ -27,8 +28,8 @@ const skillsConfig = {
     ],
     "Tools & Platforms": [
       { name: "Git", icon: "📝", color: "from-orange-500 to-red-600", level: 92 },
-      { name: "GitHub", icon: "🐙", color: "from-gray-700 to-gray-900", level: 90 },
-      { name: "Vercel", icon: "▲", color: "from-black to-gray-700", level: 88 },
+      { name: "GitHub", icon: "🐙", color: "from-gray-400 to-gray-600", level: 90 },
+      { name: "Vercel", icon: "▲", color: "from-gray-300 to-gray-500", level: 88 },
       { name: "Render", icon: "🚀", color: "from-purple-500 to-pink-500", level: 85 }
     ],
     "Concepts": [
@@ -87,9 +88,9 @@ const SkillBadge = ({ skill, index, isDragging }) => {
         isDragging ? 'opacity-40' : 'opacity-0 group-hover:opacity-60'
       }`} />
       
-      {/* Main badge - Premium style */}
-      <div className={`relative bg-gray-900 backdrop-blur-sm border rounded-xl px-3 py-3 sm:px-4 sm:py-4 shadow-lg transition-all duration-300 ${
-        isDragging ? 'border-red-400' : 'border-gray-700 group-hover:border-cyan-400'
+      {/* Main badge - Premium style with glassmorphism */}
+      <div className={`relative bg-white/10 backdrop-blur-md border rounded-xl px-3 py-3 sm:px-4 sm:py-4 shadow-lg transition-all duration-300 ${
+        isDragging ? 'border-cyan-400' : 'border-white/20 group-hover:border-cyan-400'
       }`}>
         {/* Gradient overlay */}
         <div className={`absolute inset-0 bg-gradient-to-r ${skill.color} rounded-xl transition-opacity duration-300 ${
@@ -105,12 +106,12 @@ const SkillBadge = ({ skill, index, isDragging }) => {
           </span>
           <div className="text-center">
             <span className={`block font-serif font-semibold text-sm transition-all duration-300 ${
-              isDragging ? 'text-red-400' : 'text-white group-hover:text-cyan-400'
+              isDragging ? 'text-cyan-300' : 'text-white group-hover:text-cyan-300'
             }`}>
               {skill.name}
             </span>
             <div className="flex items-center justify-center gap-1 mt-1">
-              <div className="w-8 h-1 bg-gray-700 rounded-full overflow-hidden">
+              <div className="w-8 h-1 bg-white/20 rounded-full overflow-hidden">
                 <div 
                   className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ${
                     isDragging ? 'animate-pulse' : ''
@@ -119,7 +120,7 @@ const SkillBadge = ({ skill, index, isDragging }) => {
                 />
               </div>
               <span className={`text-xs transition-colors duration-300 font-serif ${
-                isDragging ? 'text-red-400' : 'text-purple-400'
+                isDragging ? 'text-cyan-300' : 'text-purple-300'
               }`}>
                 {skill.level}%
               </span>
@@ -149,7 +150,7 @@ const useIsMobile = () => {
   return isMobile;
 };
 
-// Main Skills Component - Premium Black Card Style
+// Main Skills Component
 export default function PremiumSkills() {
   const [titleRef, titleVisible] = useIntersectionObserver(0.01);
   const [scrollRef, scrollVisible] = useIntersectionObserver(0.01);
@@ -251,147 +252,136 @@ export default function PremiumSkills() {
   return (
     <section 
       id="skills" 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 px-4 sm:px-6 lg:px-8 bg-gray-700"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
     >
-      {/* Floating particles for premium ambiance */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full opacity-20"
-            style={{
-              width: `${2 + Math.random() * 3}px`,
-              height: `${2 + Math.random() * 3}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              background: `linear-gradient(45deg, #60a5fa, #a855f7, #ec4899)`,
-              animation: `float ${4 + Math.random() * 6}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 3}s`
-            }}
-          />
-        ))}
-      </div>
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          backgroundImage: 'url(/skills.webp)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'scroll'
+        }}
+      ></div>
+      
+      {/* Subtle overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/20"></div>
 
-      {/* Main content container - Premium Card */}
-      <div className="relative z-10 w-full max-w-8xl mx-auto">
+      {/* Main content container */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto">
         <div className={`transform transition-all duration-1000 ${titleVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           
-          {/* Premium Black Card */}
-          <div className="bg-black rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-12 relative overflow-hidden border-4 border-gray-800">
+          {/* Content without background card */}
+          <div className="relative space-y-4 sm:space-y-6">
             
-            {/* Subtle inner glow */}
-            <div className="absolute inset-4 border border-gray-700 rounded-2xl pointer-events-none opacity-30"></div>
-            
-            {/* Card Content */}
-            <div className="relative z-10 space-y-6">
-              
-              {/* Section Header */}
-              <div ref={titleRef} className="text-center space-y-3">
-                <div className="inline-block px-6 py-2 bg-red-600 text-white text-sm font-medium tracking-widest uppercase rounded-full shadow-lg">
-                  Technical Expertise
-                </div>
-                
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight">
-                  {skillsConfig.title}
-                </h2>
-                
-                <div className="w-24 h-1 bg-red-600 mx-auto"></div>
-                
-                <p className="text-lg text-red-500 font-serif font-semibold">
-                  {skillsConfig.subtitle}
-                </p>
+            {/* Section Header */}
+            <div ref={titleRef} className="text-center space-y-2 sm:space-y-3">
+              <div className="inline-block px-4 py-1 sm:px-6 sm:py-2 bg-white/10 backdrop-blur-md text-white text-xs sm:text-sm font-medium tracking-widest uppercase rounded-full shadow-lg border border-white/20">
+                Technical Expertise
               </div>
+              
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight drop-shadow-2xl">
+                {skillsConfig.title}
+              </h2>
+              
+              <div className="w-16 sm:w-24 h-0.5 sm:h-1 bg-cyan-500 mx-auto"></div>
+              
+              <p className="text-base sm:text-lg md:text-xl text-cyan-300 font-serif font-semibold drop-shadow-lg">
+                {skillsConfig.subtitle}
+              </p>
+            </div>
 
-              {/* Interactive Skills Carousel */}
+            {/* Interactive Skills Carousel */}
+            <div 
+              ref={scrollRef} 
+              className={`transition-all duration-1000 ${
+                scrollVisible ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
               <div 
-                ref={scrollRef} 
-                className={`transition-all duration-1000 ${
-                  scrollVisible ? 'opacity-100' : 'opacity-0'
-                }`}
+                ref={scrollContainerRef}
+                className="relative overflow-hidden py-4 sm:py-6 select-none"
+                onMouseDown={handleDragStart}
+                onMouseMove={handleDragMove}
+                onMouseUp={handleDragEnd}
+                onMouseLeave={handleDragEnd}
+                onTouchStart={handleDragStart}
+                onTouchMove={handleDragMove}
+                onTouchEnd={handleDragEnd}
+                onTouchCancel={handleDragEnd}
+                style={{ 
+                  cursor: isDragging ? 'grabbing' : 'grab',
+                  touchAction: 'none'
+                }}
               >
+                {/* Scrolling container */}
                 <div 
-                  ref={scrollContainerRef}
-                  className="relative overflow-hidden py-6 select-none"
-                  onMouseDown={handleDragStart}
-                  onMouseMove={handleDragMove}
-                  onMouseUp={handleDragEnd}
-                  onMouseLeave={handleDragEnd}
-                  onTouchStart={handleDragStart}
-                  onTouchMove={handleDragMove}
-                  onTouchEnd={handleDragEnd}
-                  onTouchCancel={handleDragEnd}
-                  style={{ 
-                    cursor: isDragging ? 'grabbing' : 'grab',
-                    touchAction: 'none'
+                  className={`flex will-change-transform ${
+                    isAutoScrolling && !isDragging ? 'animate-scroll-fast' : ''
+                  }`}
+                  style={{
+                    transform: `translateX(${dragPosition}px)`,
+                    animationPlayState: isDragging ? 'paused' : 'running'
                   }}
                 >
-                  {/* Scrolling container */}
-                  <div 
-                    className={`flex will-change-transform ${
-                      isAutoScrolling && !isDragging ? 'animate-scroll-fast' : ''
-                    }`}
-                    style={{
-                      transform: `translateX(${dragPosition}px)`,
-                      animationPlayState: isDragging ? 'paused' : 'running'
-                    }}
-                  >
-                    {duplicatedSkills.map((skill, index) => (
-                      <SkillBadge
-                        key={`${skill.name}-${index}`}
-                        skill={skill}
-                        index={index}
-                        isDragging={isDragging}
-                      />
-                    ))}
-                  </div>
-                  
-                  {/* Gradient overlays */}
-                  <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-r from-black to-transparent pointer-events-none z-10" />
-                  <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-l from-black to-transparent pointer-events-none z-10" />
+                  {duplicatedSkills.map((skill, index) => (
+                    <SkillBadge
+                      key={`${skill.name}-${index}`}
+                      skill={skill}
+                      index={index}
+                      isDragging={isDragging}
+                    />
+                  ))}
                 </div>
+                
+                {/* Gradient overlays - Darker for better visibility */}
+                <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-r from-black/80 to-transparent pointer-events-none z-10" />
+                <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-l from-black/80 to-transparent pointer-events-none z-10" />
               </div>
-
-              {/* Skills Summary */}
-              <div 
-                ref={summaryRef}
-                className={`text-center transition-all duration-1000 ${
-                  summaryVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-              >
-                <div className="bg-gray-900 border border-gray-700 rounded-xl p-6 max-w-3xl mx-auto">
-                  <h3 className="text-xl font-serif font-bold text-cyan-400 mb-3">
-                    Always Learning, Always Growing
-                  </h3>
-                  <p className="text-sm text-gray-300 mb-4 leading-relaxed font-serif">
-                    Technology evolves rapidly, and so do I. I'm constantly expanding my skill set, 
-                    exploring new frameworks, and mastering emerging technologies to deliver cutting-edge solutions.
-                  </p>
-                  <p className="text-xs text-purple-400 font-serif mb-4">
-                    💡 Pro tip: {isMobile ? 'Swipe' : 'Click and drag'} the skills to control their movement!
-                  </p>
-                  <div className="flex justify-center gap-2 flex-wrap">
-                    <span className="bg-red-600 text-white px-3 py-1 rounded-full font-serif font-semibold text-xs">
-                      {allSkills.length}+ Technologies
-                    </span>
-                    <span className="bg-cyan-600 text-white px-3 py-1 rounded-full font-serif font-semibold text-xs">
-                      Full Stack Ready
-                    </span>
-                    <span className="bg-purple-600 text-white px-3 py-1 rounded-full font-serif font-semibold text-xs">
-                      Interactive Control
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Professional Footer */}
-              <div className="border-t border-gray-700 pt-4 mt-6">
-                <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-xs font-serif">
-                  <div className="text-cyan-400">Continuous Learning</div>
-                  <div className="text-purple-400">Modern Technologies</div>
-                </div>
-              </div>
-
             </div>
+
+            {/* Skills Summary */}
+            <div 
+              ref={summaryRef}
+              className={`text-center transition-all duration-1000 ${
+                summaryVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+            >
+              <div className="bg-white/5 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl p-4 sm:p-6 max-w-3xl mx-auto">
+                <h3 className="text-lg sm:text-xl font-serif font-bold text-cyan-300 mb-2 sm:mb-3">
+                  Always Learning, Always Growing
+                </h3>
+                <p className="text-xs sm:text-sm text-gray-200 mb-3 sm:mb-4 leading-relaxed font-serif">
+                  Technology evolves rapidly, and so do I. I'm constantly expanding my skill set, 
+                  exploring new frameworks, and mastering emerging technologies to deliver cutting-edge solutions.
+                </p>
+                <p className="text-[10px] sm:text-xs text-purple-300 font-serif mb-3 sm:mb-4">
+                  💡 Pro tip: {isMobile ? 'Swipe' : 'Click and drag'} the skills to control their movement!
+                </p>
+                <div className="flex justify-center gap-2 flex-wrap">
+                  <span className="bg-cyan-600 text-white px-2.5 py-1 sm:px-3 sm:py-1 rounded-full font-serif font-semibold text-[10px] sm:text-xs">
+                    {allSkills.length}+ Technologies
+                  </span>
+                  <span className="bg-blue-600 text-white px-2.5 py-1 sm:px-3 sm:py-1 rounded-full font-serif font-semibold text-[10px] sm:text-xs">
+                    Full Stack Ready
+                  </span>
+                  <span className="bg-purple-600 text-white px-2.5 py-1 sm:px-3 sm:py-1 rounded-full font-serif font-semibold text-[10px] sm:text-xs">
+                    Interactive Control
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Professional Footer */}
+            <div className="border-t border-white/20 pt-3 sm:pt-4 mt-4 sm:mt-6">
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-[10px] sm:text-xs font-serif">
+                <div className="text-cyan-300">Continuous Learning</div>
+                <div className="text-purple-300">Modern Technologies</div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -434,6 +424,17 @@ export default function PremiumSkills() {
         @media (max-width: 480px) {
           .animate-scroll-fast {
             animation-duration: 10s !important;
+          }
+        }
+        
+        /* Ensure background image displays properly */
+        section#skills {
+          background-attachment: scroll;
+        }
+        
+        @media (max-width: 640px) {
+          #skills {
+            min-height: 100vh;
           }
         }
       `}</style>

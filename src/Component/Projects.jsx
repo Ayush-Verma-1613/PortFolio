@@ -104,7 +104,7 @@ const ProjectImage = ({ project, isHovered }) => {
   const [imageError, setImageError] = useState(false);
 
   return (
-    <div className="relative w-full h-40 sm:h-48 rounded-xl overflow-hidden bg-gray-800 mb-4">
+    <div className="relative w-full h-24 xs:h-28 sm:h-32 md:h-36 rounded-lg overflow-hidden bg-gray-800/50 backdrop-blur-sm mb-2 sm:mb-3">
       {!imageError ? (
         <>
           <img
@@ -117,15 +117,15 @@ const ProjectImage = ({ project, isHovered }) => {
             onError={() => setImageError(true)}
           />
           {!imageLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
-              <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-cyan-400"></div>
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-800/50">
+              <div className="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-t-2 border-cyan-400"></div>
             </div>
           )}
         </>
       ) : (
-        <div className="w-full h-full bg-gray-800 flex flex-col items-center justify-center text-gray-400">
-          <div className="text-3xl mb-2">🖼️</div>
-          <p className="text-xs text-center px-2">Screenshot not available</p>
+        <div className="w-full h-full bg-gray-800/50 flex flex-col items-center justify-center text-gray-400">
+          <div className="text-xl sm:text-2xl mb-1">🖼️</div>
+          <p className="text-[9px] sm:text-[10px] text-center px-2">Screenshot not available</p>
         </div>
       )}
       
@@ -133,8 +133,8 @@ const ProjectImage = ({ project, isHovered }) => {
       <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
       
       {/* Project category badge on image */}
-      <div className="absolute bottom-2 left-2">
-        <span className="px-2 py-1 rounded-full text-xs font-medium bg-black/70 backdrop-blur-sm text-cyan-400 border border-cyan-400/30">
+      <div className="absolute bottom-1 left-1 sm:bottom-1.5 sm:left-1.5">
+        <span className="px-1.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-medium bg-black/70 backdrop-blur-sm text-cyan-300 border border-cyan-400/30">
           {project.category}
         </span>
       </div>
@@ -148,51 +148,51 @@ const ProjectCard = ({ project, index, isVisible, isExpanded, onToggle }) => {
 
   return (
     <div
-      className={`group relative bg-gray-900 border border-gray-700 rounded-xl overflow-hidden hover:border-red-600 transition-all duration-500 transform hover:scale-[1.02] ${
+      className={`group relative bg-white/5 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl overflow-hidden hover:border-cyan-400 transition-all duration-500 transform hover:scale-[1.02] ${
         isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
       }`}
-      style={{ animationDelay: `${index * 0.5}s` }}
+      style={{ animationDelay: `${index * 0.2}s` }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Status Badge */}
-      <div className="absolute top-3 right-3 z-20">
-        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+      <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 z-20">
+        <span className={`px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-full text-[9px] sm:text-[10px] font-semibold ${
           project.status === 'Live' 
-            ? 'bg-green-500/20 text-green-400 border border-green-500/50' 
-            : 'bg-orange-500/20 text-orange-400 border border-orange-500/50'
+            ? 'bg-green-500/20 text-green-300 border border-green-500/50' 
+            : 'bg-orange-500/20 text-orange-300 border border-orange-500/50'
         }`}>
           {project.status}
         </span>
       </div>
 
-      {/* Card Content */}
-      <div className="relative z-10 p-4">
+      {/* Card Content - More compact */}
+      <div className="relative z-10 p-2 sm:p-3">
         
-        {/* Project Screenshot */}
+        {/* Project Screenshot - Smaller */}
         <ProjectImage project={project} isHovered={isHovered} />
         
         {/* Project Title & Year */}
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-lg font-serif font-bold text-white group-hover:text-red-400 transition-all duration-300">
+        <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+          <h3 className="text-sm sm:text-base font-serif font-bold text-white group-hover:text-cyan-300 transition-all duration-300">
             {project.title}
           </h3>
-          <span className="text-xs text-purple-400 font-serif">{project.year}</span>
+          <span className="text-[9px] sm:text-[10px] text-purple-300 font-serif">{project.year}</span>
         </div>
 
-        {/* Description */}
-        <p className="text-gray-300 leading-relaxed mb-4 text-sm font-serif">
+        {/* Description - More compact */}
+        <p className="text-gray-200 leading-relaxed mb-2 sm:mb-3 text-[10px] sm:text-xs font-serif line-clamp-3">
           {isExpanded ? project.longDescription : project.description}
         </p>
 
         {/* Highlights - Only show on expanded */}
         {isExpanded && (
-          <div className="mb-4 animate-fade-in">
-            <h4 className="text-sm font-serif font-semibold text-cyan-400 mb-2">Key Features:</h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+          <div className="mb-2 sm:mb-3 animate-fade-in">
+            <h4 className="text-[10px] sm:text-xs font-serif font-semibold text-cyan-300 mb-1.5">Key Features:</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-0.5 sm:gap-1">
               {project.highlights.map((highlight, idx) => (
-                <div key={idx} className="flex items-center gap-2 text-xs text-gray-400">
-                  <span className="text-cyan-400 text-xs">✓</span>
+                <div key={idx} className="flex items-center gap-1 sm:gap-1.5 text-[9px] sm:text-[10px] text-gray-300">
+                  <span className="text-cyan-300 text-[10px]">✓</span>
                   <span>{highlight}</span>
                 </div>
               ))}
@@ -200,14 +200,14 @@ const ProjectCard = ({ project, index, isVisible, isExpanded, onToggle }) => {
           </div>
         )}
 
-        {/* Tech Stack */}
-        <div className="mb-4">
-          <h4 className="text-sm font-serif font-semibold text-gray-400 mb-2">Tech Stack:</h4>
-          <div className="flex flex-wrap gap-1">
+        {/* Tech Stack - More compact */}
+        <div className="mb-2 sm:mb-3">
+          <h4 className="text-[10px] sm:text-xs font-serif font-semibold text-gray-300 mb-1">Tech Stack:</h4>
+          <div className="flex flex-wrap gap-0.5 sm:gap-1">
             {project.tech.map((tech, idx) => (
               <span
                 key={idx}
-                className="px-2 py-1 bg-gray-800 text-cyan-400 rounded-full text-xs font-serif font-medium hover:bg-gray-700 hover:text-white transition-colors duration-200"
+                className="px-1.5 py-0.5 sm:px-2 sm:py-0.5 bg-white/10 backdrop-blur-sm text-cyan-300 rounded-full text-[9px] sm:text-[10px] font-serif font-medium hover:bg-white/20 hover:text-white transition-colors duration-200 border border-white/20"
               >
                 {tech}
               </span>
@@ -215,13 +215,13 @@ const ProjectCard = ({ project, index, isVisible, isExpanded, onToggle }) => {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-stretch gap-2">
+        {/* Action Buttons - More compact */}
+        <div className="flex flex-col xs:flex-row items-stretch gap-1 sm:gap-1.5">
           <a
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 bg-red-600 text-white px-4 py-2 rounded-lg font-serif font-semibold text-center text-sm hover:bg-red-700 transition-all duration-300 transform hover:scale-105"
+            className="flex-1 bg-cyan-600 text-white px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-md font-serif font-semibold text-center text-[10px] sm:text-xs hover:bg-cyan-700 transition-all duration-300 transform hover:scale-105"
           >
             View Live →
           </a>
@@ -229,13 +229,13 @@ const ProjectCard = ({ project, index, isVisible, isExpanded, onToggle }) => {
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 border border-purple-500 text-purple-400 rounded-lg font-serif font-semibold text-center text-sm hover:bg-purple-500 hover:text-white transition-all duration-300"
+            className="px-2.5 py-1.5 sm:px-3 sm:py-1.5 border border-purple-400 text-purple-300 rounded-md font-serif font-semibold text-center text-[10px] sm:text-xs hover:bg-purple-500 hover:text-white transition-all duration-300"
           >
             Code
           </a>
           <button
             onClick={() => onToggle(project.id)}
-            className="px-3 py-2 text-gray-400 hover:text-cyan-400 transition-colors duration-300 rounded-lg border border-gray-700 hover:border-gray-600 text-xs"
+            className="px-2 py-1.5 sm:px-2.5 sm:py-1.5 text-gray-300 hover:text-cyan-300 transition-colors duration-300 rounded-md border border-white/20 hover:border-white/40 text-[9px] sm:text-[10px]"
             title={isExpanded ? "Show Less" : "Show More"}
           >
             {isExpanded ? "Less ↑" : "More ↓"}
@@ -250,17 +250,17 @@ const ProjectCard = ({ project, index, isVisible, isExpanded, onToggle }) => {
 const FilterButton = ({ category, isActive, onClick, count }) => (
   <button
     onClick={() => onClick(category)}
-    className={`px-4 py-2 rounded-full font-serif font-semibold text-sm transition-all duration-300 transform hover:scale-105 ${
+    className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full font-serif font-semibold text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 ${
       isActive
-        ? 'bg-red-600 text-white shadow-lg'
-        : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-600'
+        ? 'bg-cyan-600 text-white shadow-lg'
+        : 'bg-white/10 backdrop-blur-sm text-gray-300 hover:bg-white/20 hover:text-white border border-white/20'
     }`}
   >
     {category} {count > 0 && `(${count})`}
   </button>
 );
 
-// Main Projects Component - Premium Black Card Style
+// Main Projects Component
 export default function PremiumProjects() {
   const [titleRef, titleVisible] = useIntersectionObserver(0.01);
   const [projectsRef, projectsVisible] = useIntersectionObserver(0.01);
@@ -291,114 +291,107 @@ export default function PremiumProjects() {
   return (
     <section 
       id="projects" 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 px-4 sm:px-6 lg:px-8 bg-gray-700"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
+      style={{
+        backgroundColor: '#000000'
+      }}
     >
-      {/* Floating particles for premium ambiance */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full opacity-20"
-            style={{
-              width: `${2 + Math.random() * 3}px`,
-              height: `${2 + Math.random() * 3}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              background: `linear-gradient(45deg, #60a5fa, #a855f7, #ec4899)`,
-              animation: `float ${4 + Math.random() * 6}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 3}s`
-            }}
-          />
-        ))}
-      </div>
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 w-full h-full"
+        style={{
+          backgroundImage: 'url(/featureProjects.webp)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'scroll',
+          minHeight: '100vh'
+        }}
+      ></div>
+      
+      {/* Subtle overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/20"></div>
 
-      {/* Main content container - Premium Card */}
-      <div className="relative z-10 w-full max-w-8xl mx-auto">
+      {/* Main content container */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto">
         <div className={`transform transition-all duration-1000 ${titleVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           
-          {/* Premium Black Card */}
-          <div className="bg-black rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-12 relative overflow-hidden border-4 border-gray-800">
+          {/* Content without background card */}
+          <div className="relative space-y-4 sm:space-y-6">
             
-            {/* Subtle inner glow */}
-            <div className="absolute inset-4 border border-gray-700 rounded-2xl pointer-events-none opacity-30"></div>
-            
-            {/* Card Content */}
-            <div className="relative z-10 space-y-6">
-              
-              {/* Section Header */}
-              <div ref={titleRef} className="text-center space-y-3">
-                <div className="inline-block px-6 py-2 bg-red-600 text-white text-sm font-medium tracking-widest uppercase rounded-full shadow-lg">
-                  Portfolio Showcase
-                </div>
-                
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight">
-                  {projectsConfig.title}
-                </h2>
-                
-                <div className="w-24 h-1 bg-red-600 mx-auto"></div>
-                
-                <p className="text-lg text-red-500 font-serif font-semibold">
-                  {projectsConfig.subtitle}
-                </p>
-
-                {/* Filter Buttons */}
-                <div className="flex justify-center gap-3 pt-4">
-                  {projectsConfig.categories.map((category) => (
-                    <FilterButton
-                      key={category}
-                      category={category}
-                      isActive={activeFilter === category}
-                      onClick={setActiveFilter}
-                      count={getCategoryCount(category)}
-                    />
-                  ))}
-                </div>
+            {/* Section Header */}
+            <div ref={titleRef} className="text-center space-y-2 sm:space-y-3">
+              <div className="inline-block px-4 py-1 sm:px-6 sm:py-2 bg-white/10 backdrop-blur-md text-white text-xs sm:text-sm font-medium tracking-widest uppercase rounded-full shadow-lg border border-white/20">
+                Portfolio Showcase
               </div>
+              
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight drop-shadow-2xl">
+                {projectsConfig.title}
+              </h2>
+              
+              <div className="w-16 sm:w-24 h-0.5 sm:h-1 bg-cyan-500 mx-auto"></div>
+              
+              <p className="text-base sm:text-lg md:text-xl text-cyan-300 font-serif font-semibold drop-shadow-lg">
+                {projectsConfig.subtitle}
+              </p>
 
-              {/* Projects Grid */}
-              <div ref={projectsRef} className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                {filteredProjects.map((project, index) => (
-                  <ProjectCard
-                    key={project.id}
-                    project={project}
-                    index={index}
-                    isVisible={projectsVisible}
-                    isExpanded={expandedProjects.has(project.id)}
-                    onToggle={toggleExpand}
+              {/* Filter Buttons */}
+              <div className="flex justify-center gap-2 sm:gap-3 pt-3 sm:pt-4">
+                {projectsConfig.categories.map((category) => (
+                  <FilterButton
+                    key={category}
+                    category={category}
+                    isActive={activeFilter === category}
+                    onClick={setActiveFilter}
+                    count={getCategoryCount(category)}
                   />
                 ))}
               </div>
-
-              {/* Call to Action */}
-              <div className={`text-center pt-6 transition-all duration-1000 delay-600 ${
-                projectsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}>
-                <div className="bg-gray-900 border border-gray-700 rounded-xl p-6 max-w-2xl mx-auto">
-                  <h3 className="text-xl font-serif font-bold text-cyan-400 mb-3">
-                    Interested in collaborating?
-                  </h3>
-                  <p className="text-gray-300 mb-4 text-sm font-serif">
-                    I'm always excited to work on new projects and bring innovative ideas to life.
-                  </p>
-                  <a
-                    href="#contact"
-                    className="inline-flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-xl font-serif font-semibold text-sm hover:bg-red-700 transition-all duration-300 transform hover:scale-105 shadow-xl shadow-red-600/30"
-                  >
-                    Start a Project
-                    <span className="animate-bounce">🚀</span>
-                  </a>
-                </div>
-              </div>
-
-              {/* Professional Footer */}
-              <div className="border-t border-gray-700 pt-4 mt-6">
-                <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-xs font-serif">
-                  <div className="text-cyan-400">Creative Solutions</div>
-                  <div className="text-purple-400">Modern Development</div>
-                </div>
-              </div>
-
             </div>
+
+            {/* Projects Grid - Mobile Responsive */}
+            <div ref={projectsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+              {filteredProjects.map((project, index) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  index={index}
+                  isVisible={projectsVisible}
+                  isExpanded={expandedProjects.has(project.id)}
+                  onToggle={toggleExpand}
+                />
+              ))}
+            </div>
+
+            {/* Call to Action */}
+            <div className={`text-center pt-4 sm:pt-6 transition-all duration-1000 ${
+              projectsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`} style={{ transitionDelay: '0.6s' }}>
+              <div className="bg-white/5 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl p-4 sm:p-6 max-w-2xl mx-auto">
+                <h3 className="text-lg sm:text-xl font-serif font-bold text-cyan-300 mb-2 sm:mb-3">
+                  Interested in collaborating?
+                </h3>
+                <p className="text-gray-200 mb-3 sm:mb-4 text-xs sm:text-sm font-serif">
+                  I'm always excited to work on new projects and bring innovative ideas to life.
+                </p>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2 bg-cyan-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg sm:rounded-xl font-serif font-semibold text-xs sm:text-sm hover:bg-cyan-700 transition-all duration-300 transform hover:scale-105 shadow-2xl"
+                >
+                  Start a Project
+                  <span className="animate-bounce">🚀</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Professional Footer */}
+            <div className="border-t border-white/20 pt-3 sm:pt-4 mt-4 sm:mt-6">
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-[10px] sm:text-xs font-serif">
+                <div className="text-cyan-300">Creative Solutions</div>
+                <div className="text-purple-300">Modern Development</div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -432,6 +425,18 @@ export default function PremiumProjects() {
         
         .animate-fade-in {
           animation: fade-in 0.5s ease-out forwards;
+        }
+        
+        /* Ensure background image displays properly on all devices */
+        @media (max-width: 640px) {
+          #projects {
+            min-height: 100vh;
+          }
+        }
+        
+        /* Fix for background image */
+        section#projects {
+          background-attachment: scroll;
         }
       `}</style>
     </section>

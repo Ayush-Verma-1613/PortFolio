@@ -10,7 +10,7 @@ const aboutConfig = {
   ],
   skills: [
     { name: "Frontend Development", level: 95, color: "from-cyan-400 to-blue-500" },
-    { name: "Backend Architecture", level: 90, color: "from-purple-400 to-pink-500" },
+    { name: "Backend Architecture", level: 95, color: "from-purple-400 to-pink-500" },
     { name: "Database Design", level: 85, color: "from-green-400 to-emerald-500" },
     { name: "UI/UX Design", level: 80, color: "from-orange-400 to-red-500" }
   ],
@@ -66,15 +66,15 @@ const SkillBar = ({ skill, index, isVisible }) => {
 
   return (
     <div className="group">
-      <div className="flex justify-between items-center mb-3">
-        <span className="text-gray-300 font-serif font-medium group-hover:text-white transition-colors duration-300">
+      <div className="flex justify-between items-center mb-2 sm:mb-3">
+        <span className="text-xs sm:text-sm md:text-base text-gray-200 font-serif font-medium group-hover:text-white transition-colors duration-300">
           {skill.name}
         </span>
-        <span className="text-sm text-cyan-400 font-serif font-semibold">{skill.level}%</span>
+        <span className="text-xs sm:text-sm text-cyan-300 font-serif font-semibold">{skill.level}%</span>
       </div>
-      <div className="h-3 bg-gray-800 rounded-full overflow-hidden border border-gray-700">
+      <div className="h-2 sm:h-3 bg-white/20 backdrop-blur-sm rounded-full overflow-hidden border border-white/30">
         <div
-          className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ease-out transform origin-left shadow-sm`}
+          className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ease-out transform origin-left shadow-lg`}
           style={{
             width: `${width}%`,
             transform: `scaleX(${width / 100})`
@@ -89,21 +89,21 @@ const SkillBar = ({ skill, index, isVisible }) => {
 const TechCard = ({ tech, index, isVisible }) => {
   return (
     <div
-      className={`group bg-gray-900 border border-gray-700 rounded-xl p-4 hover:border-red-600 hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 text-center ${
+      className={`group bg-white/10 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl p-3 sm:p-4 hover:border-blue-400 hover:bg-white/20 transition-all duration-300 transform hover:scale-105 text-center ${
         isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-4'
       }`}
       style={{ animationDelay: `${index * 0.1}s` }}
     >
-      <div className="text-2xl mb-2 group-hover:animate-bounce">{tech.icon}</div>
-      <h4 className="font-serif font-semibold text-cyan-400 mb-1 text-sm">{tech.name}</h4>
-      <span className="text-xs text-purple-400 bg-gray-800 px-2 py-1 rounded-full font-serif">
+      <div className="text-xl sm:text-2xl mb-1 sm:mb-2 group-hover:animate-bounce">{tech.icon}</div>
+      <h4 className="font-serif font-semibold text-cyan-300 mb-1 text-xs sm:text-sm">{tech.name}</h4>
+      <span className="text-[10px] sm:text-xs text-purple-300 bg-white/10 px-2 py-0.5 sm:py-1 rounded-full font-serif">
         {tech.category}
       </span>
     </div>
   );
 };
 
-// Main About Component - Premium Black Card Style
+// Main About Component
 export default function PremiumAbout() {
   const [titleRef, titleVisible] = useIntersectionObserver(0.1);
   const [contentRef, contentVisible] = useIntersectionObserver(0.1);
@@ -113,159 +113,144 @@ export default function PremiumAbout() {
   return (
     <section 
       id="about" 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 px-4 sm:px-6 lg:px-8 bg-gray-700"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
     >
-      {/* Floating particles for premium ambiance */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full opacity-20"
-            style={{
-              width: `${2 + Math.random() * 3}px`,
-              height: `${2 + Math.random() * 3}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              background: `linear-gradient(45deg, #60a5fa, #a855f7, #ec4899)`,
-              animation: `float ${4 + Math.random() * 6}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 3}s`
-            }}
-          />
-        ))}
-      </div>
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url(/AboutUs.webp)',
+        }}
+      ></div>
+      
+      {/* Subtle overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/40"></div>
 
-      {/* Main content container - Premium Card */}
-      <div className="relative z-10 w-full max-w-8xl mx-auto">
+      {/* Main content container */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto">
         <div className={`transform transition-all duration-1000 ${titleVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           
-          {/* Premium Black Card */}
-          <div className="bg-black rounded-3xl shadow-2xl p-8 sm:p-12 lg:p-16 relative overflow-hidden border-4 border-gray-800">
+          {/* Content without background card */}
+          <div className="relative space-y-6 sm:space-y-8">
             
-            {/* Subtle inner glow */}
-            <div className="absolute inset-4 border border-gray-700 rounded-2xl pointer-events-none opacity-30"></div>
-            
-            {/* Card Content */}
-            <div className="relative z-10 space-y-8">
+            {/* Section Header */}
+            <div ref={titleRef} className="text-center space-y-2 sm:space-y-3">
+              <div className="inline-block px-4 py-1 sm:px-6 sm:py-2 bg-white/10 backdrop-blur-md text-white text-xs sm:text-sm font-medium tracking-widest uppercase rounded-full shadow-lg border border-white/20">
+                Professional Profile
+              </div>
               
-              {/* Section Header */}
-              <div ref={titleRef} className="text-center space-y-3">
-                <div className="inline-block px-6 py-2 bg-red-600 text-white text-sm font-medium tracking-widest uppercase rounded-full shadow-lg">
-                  Professional Profile
-                </div>
-                
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight">
-                  {aboutConfig.title}
-                </h2>
-                
-                <div className="w-24 h-1 bg-red-600 mx-auto"></div>
-                
-                <p className="text-lg sm:text-xl text-red-500 font-serif font-semibold">
-                  {aboutConfig.subtitle}
-                </p>
-              </div>
-
-              {/* Main Content Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-                
-                {/* Description Section */}
-                <div ref={contentRef} className="space-y-6">
-                  <h3 className="text-xl font-serif font-bold text-cyan-400 mb-4">
-                    My Journey
-                  </h3>
-                  
-                  {aboutConfig.description.map((paragraph, index) => (
-                    <p
-                      key={index}
-                      className={`text-base text-gray-300 leading-relaxed font-serif transition-all duration-1000 ${
-                        contentVisible
-                          ? "opacity-100 translate-x-0"
-                          : "opacity-0 -translate-x-8"
-                      }`}
-                      style={{ animationDelay: `${index * 0.3}s` }}
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-
-                  {/* Professional Quote */}
-                  <blockquote className={`border-l-4 border-red-600 pl-4 italic text-purple-300 font-serif text-sm mt-6 transition-all duration-1000 delay-600 ${
-                    contentVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
-                  }`}>
-                    "Excellence is not a skill, it's an attitude toward crafting digital solutions."
-                  </blockquote>
-
-                  {/* Call to Action */}
-                  <div className={`pt-6 transition-all duration-1000 delay-800 ${
-                    contentVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
-                  }`}>
-                    <a
-                      href="#contact"
-                      className="inline-flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-xl font-serif font-semibold hover:bg-red-700 transition-all duration-300 transform hover:scale-105 shadow-xl shadow-red-600/30"
-                    >
-                      Let's Connect
-                      <span className="animate-bounce">→</span>
-                    </a>
-                  </div>
-                </div>
-
-                {/* Skills Section */}
-                <div ref={skillsRef} className="space-y-6">
-                  <h3 className={`text-xl font-serif font-bold text-cyan-400 mb-6 transition-all duration-1000 ${
-                    skillsVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-                  }`}>
-                    Technical Expertise
-                  </h3>
-                  
-                  <div className="space-y-6">
-                    {aboutConfig.skills.map((skill, index) => (
-                      <div key={skill.name} className={`transition-all duration-1000 ${
-                        skillsVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-                      }`} style={{ animationDelay: `${index * 0.5}s` }}>
-                        <SkillBar
-                          skill={skill}
-                          index={index}
-                          isVisible={skillsVisible}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Technologies Section */}
-              <div ref={techRef} className="space-y-6">
-                <div className="text-center">
-                  <h3 className={`text-2xl font-serif font-bold text-cyan-400 mb-2 transition-all duration-1000 ${
-                    techVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                  }`}>
-                    Technologies I Master
-                  </h3>
-                  <div className="w-16 h-1 bg-purple-600 mx-auto mb-8"></div>
-                </div>
-                
-                <div className="flex justify-center">
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl">
-                    {aboutConfig.technologies.map((tech, index) => (
-                      <TechCard
-                        key={tech.name}
-                        tech={tech}
-                        index={index}
-                        isVisible={techVisible}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Professional Footer */}
-              <div className="border-t border-gray-700 pt-6 mt-8">
-                <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-xs font-serif">
-                  <div className="text-cyan-400">Passionate Developer</div>
-                  <div className="text-purple-400">Ready for New Challenges</div>
-                </div>
-              </div>
-
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight drop-shadow-2xl">
+                {aboutConfig.title}
+              </h2>
+              
+              <div className="w-16 sm:w-24 h-0.5 sm:h-1 bg-blue-500 mx-auto"></div>
+              
+              <p className="text-base sm:text-lg md:text-xl text-blue-300 font-serif font-semibold drop-shadow-lg">
+                {aboutConfig.subtitle}
+              </p>
             </div>
+
+            {/* Main Content Grid - Mobile Responsive */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
+              
+              {/* Description Section */}
+              <div ref={contentRef} className="space-y-4 sm:space-y-6">
+                <h3 className="text-lg sm:text-xl font-serif font-bold text-cyan-300 mb-3 sm:mb-4 drop-shadow-lg">
+                  My Journey
+                </h3>
+                
+                {aboutConfig.description.map((paragraph, index) => (
+                  <p
+                    key={index}
+                    className={`text-xs sm:text-sm md:text-base text-gray-200 leading-relaxed font-serif transition-all duration-1000 drop-shadow-md ${
+                      contentVisible
+                        ? "opacity-100 translate-x-0"
+                        : "opacity-0 -translate-x-8"
+                    }`}
+                    style={{ transitionDelay: `${index * 0.3}s` }}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+
+                {/* Professional Quote */}
+                <blockquote className={`border-l-2 sm:border-l-4 border-blue-500 pl-3 sm:pl-4 italic text-purple-200 font-serif text-xs sm:text-sm mt-4 sm:mt-6 transition-all duration-1000 drop-shadow-md ${
+                  contentVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
+                }`} style={{ transitionDelay: '0.6s' }}>
+                  "Excellence is not a skill, it's an attitude toward crafting digital solutions."
+                </blockquote>
+
+                {/* Call to Action */}
+                <div className={`pt-4 sm:pt-6 transition-all duration-1000 ${
+                  contentVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
+                }`} style={{ transitionDelay: '0.8s' }}>
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg sm:rounded-xl font-serif font-semibold text-xs sm:text-base hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-2xl"
+                  >
+                    Let's Connect
+                    <span className="animate-bounce">→</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Skills Section */}
+              <div ref={skillsRef} className="space-y-4 sm:space-y-6">
+                <h3 className={`text-lg sm:text-xl font-serif font-bold text-cyan-300 mb-4 sm:mb-6 transition-all duration-1000 drop-shadow-lg ${
+                  skillsVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
+                }`}>
+                  Technical Expertise
+                </h3>
+                
+                <div className="space-y-4 sm:space-y-6">
+                  {aboutConfig.skills.map((skill, index) => (
+                    <div key={skill.name} className={`transition-all duration-1000 ${
+                      skillsVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
+                    }`} style={{ transitionDelay: `${index * 0.2}s` }}>
+                      <SkillBar
+                        skill={skill}
+                        index={index}
+                        isVisible={skillsVisible}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Technologies Section */}
+            <div ref={techRef} className="space-y-4 sm:space-y-6 pt-4 sm:pt-8">
+              <div className="text-center">
+                <h3 className={`text-xl sm:text-2xl font-serif font-bold text-cyan-300 mb-2 transition-all duration-1000 drop-shadow-lg ${
+                  techVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                }`}>
+                  Technologies I Master
+                </h3>
+                <div className="w-12 sm:w-16 h-0.5 sm:h-1 bg-purple-500 mx-auto mb-6 sm:mb-8"></div>
+              </div>
+              
+              <div className="flex justify-center">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-2xl w-full">
+                  {aboutConfig.technologies.map((tech, index) => (
+                    <TechCard
+                      key={tech.name}
+                      tech={tech}
+                      index={index}
+                      isVisible={techVisible}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Professional Footer */}
+            <div className="border-t border-white/20 pt-4 sm:pt-6 mt-6 sm:mt-8">
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-[10px] sm:text-xs font-serif">
+                <div className="text-cyan-300">Passionate Developer</div>
+                <div className="text-purple-300">Ready for New Challenges</div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -290,6 +275,14 @@ export default function PremiumAbout() {
         
         .animate-fade-in-up {
           animation: fade-in-up 0.3s ease-out forwards;
+        }
+        
+        /* Mobile responsive adjustments */
+        @media (max-width: 640px) {
+          #about > div:first-child {
+            background-size: cover !important;
+            background-position: center !important;
+          }
         }
       `}</style>
     </section>
