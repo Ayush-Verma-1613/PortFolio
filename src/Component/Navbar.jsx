@@ -22,7 +22,7 @@ const navigationConfig = [
 ];
 
 // NavLink Component
-const NavLink = ({ item, onClick, isActive }) => {
+const NavLink = ({ item, onClick, isActive, isMobile }) => {
   const IconComponent = item.icon;
   
   const handleClick = (e) => {
@@ -53,10 +53,11 @@ const NavLink = ({ item, onClick, isActive }) => {
         isActive 
           ? "text-amber-400 font-bold underline" 
           : "text-gray-100 hover:text-amber-400"
-      }`}
+      } ${isMobile ? "justify-center" : ""}`}
+      title={isMobile ? item.name : undefined}
     >
       <IconComponent size={18} className="group-hover:scale-110 transition-transform" />
-      <span>{item.name}</span>
+      {!isMobile && <span>{item.name}</span>}
     </a>
   );
 };
@@ -153,7 +154,6 @@ const ResumeModal = ({ isOpen, onClose }) => {
 // Navbar
 export default function Navbar() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
   // Track active section on scroll
@@ -183,7 +183,6 @@ export default function Navbar() {
   const handleResumeClick = (e) => {
     e.preventDefault();
     setIsResumeOpen(true);
-    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -202,45 +201,38 @@ export default function Navbar() {
 
       <header className="fixed top-0 w-full z-50 py-4 md:py-8 px-4 md:px-8">
         <nav className="relative flex justify-center items-center">
-          {/* Desktop Centered Oval Menu */}
+          {/* Desktop Centered Oval Menu - Full text + icons */}
           <div className="hidden lg:flex bg-gray-900 gap-4 xl:gap-6 shadow-lg items-center border border-gray-200 px-6 xl:px-8 py-3 rounded-full">
             {navigationConfig.map((item) => (
               <NavLink 
                 key={item.name} 
                 item={item}
                 isActive={activeSection === item.href.substring(1)}
+                isMobile={false}
               />
             ))}
             <ResumeButton onClick={handleResumeClick} />
           </div>
 
-          {/* Mobile Menu Button - Top Right Corner */}
-          <div className="lg:hidden absolute right-0 top-0">
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="bg-gray-900 text-gray-100 p-3 rounded-full hover:bg-gray-800 transition-colors border border-gray-200 shadow-lg"
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </nav>
-
-        {/* Mobile Dropdown - Positioned from top right */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden absolute right-4 top-20 bg-gray-900 rounded-2xl shadow-xl border border-gray-200 py-4 px-2 space-y-2 min-w-[250px]">
+          {/* Mobile Centered Oval Menu - Icons only */}
+          <div className="lg:hidden flex bg-gray-900 gap-2 sm:gap-3 shadow-lg items-center border border-gray-200 px-4 py-3 rounded-full">
             {navigationConfig.map((item) => (
               <NavLink 
                 key={item.name} 
-                item={item} 
-                onClick={() => setIsMobileMenuOpen(false)}
+                item={item}
                 isActive={activeSection === item.href.substring(1)}
+                isMobile={true}
               />
             ))}
-            <div className="px-2">
-              <ResumeButton onClick={handleResumeClick} isMobile />
-            </div>
+            <button
+              onClick={handleResumeClick}
+              className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition-colors shadow-md hover:shadow-lg"
+              title="Resume"
+            >
+              <Eye size={16} />
+            </button>
           </div>
-        )}
+        </nav>
 
         {/* Resume Modal */}
         <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />

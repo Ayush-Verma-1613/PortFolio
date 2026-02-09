@@ -8,7 +8,6 @@ const heroConfig = {
   roles: [
     "Full-Stack Developer",
     "React Specialist", 
-    "Next,js Enthusiast",
     "Node.js Expert",
     "UI/UX Enthusiast",
     "Software Developer"
@@ -79,10 +78,11 @@ export default function PremiumHero() {
         /* Mobile Background - Different Image */
         @media (max-width: 1023px) {
           .hero-background-mobile {
-            background-image: url(/MobileheroSection.jpeg);
-            background-size: cover;
+            background-image: url(/MobileheroSection.png);
+            background-size: contain;
             background-position: center top;
             background-repeat: no-repeat;
+            background-color: #000;
           }
         }
       `}</style>
@@ -114,13 +114,7 @@ export default function PremiumHero() {
               <div className="flex-shrink-0 lg:-ml-16 xl:-ml-24">
                 <div className="relative group">
                   {/* Circle Frame Container - Responsive */}
-                 <div className="
-  w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96
-  rounded-full border-4 border-white/20 shadow-2xl overflow-hidden
-  bg-gradient-to-br from-gray-900 to-black relative backdrop-blur-sm
-
-  ml-1 sm:ml-0
-">
+                  <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full border-4 border-white/20 shadow-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black relative backdrop-blur-sm">
                     {/* Profile Image */}
                     <img
                       src="/Ayush.jpeg"
@@ -155,6 +149,11 @@ export default function PremiumHero() {
                 
                 {/* Decorative line */}
                 <div className="w-12 sm:w-16 h-0.5 bg-blue-500 mx-auto lg:mx-0"></div>
+                
+                {/* Title */}
+                <h2 className="text-lg sm:text-xl md:text-xl lg:text-xl xl:text-2xl font-semibold text-blue-400">
+                  {heroConfig.title}
+                </h2>
                 
                 {/* Dynamic Role with typewriter */}
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 border border-white/10 inline-block">
