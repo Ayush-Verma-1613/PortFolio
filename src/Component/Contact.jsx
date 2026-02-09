@@ -134,9 +134,11 @@ const ContactCard = ({ method, index, isVisible }) => {
         </div>
 
         {/* Title - Smaller on mobile */}
-        <h3 className="text-xs sm:text-base md:text-lg font-serif font-bold text-blue-500 mb-1 sm:mb-1.5 md:mb-2 group-hover:text-cyan-300 transition-all duration-300">
+        <div className="inline-block px-1 sm:px-2 md:px-2 bg-gray-600 text-white text-[10px] sm:text-xs md:text-sm font-medium tracking-widest uppercase rounded-full shadow-lg border border-white/20"> 
+        <h3 className="text-xs sm:text-base md:text-lg font-serif font-bold text-cyan-300 mb-1 sm:mb-1.5 md:mb-2 group-hover:text-cyan-300 transition-all duration-300">
           {method.name}
-        </h3>
+        </h3></div>
+       
 
         {/* Value - Smaller and hide on mobile */}
         <p className="hidden sm:block text-xs sm:text-sm text-gray-200 font-serif mb-1.5 sm:mb-2 group-hover:text-white transition-colors duration-300 break-words px-1">
@@ -147,7 +149,7 @@ const ContactCard = ({ method, index, isVisible }) => {
         </p>
 
         {/* Description - Smaller on mobile */}
-        <p className="text-[9px] sm:text-[10px] md:text-xs text-purple-600 font-serif group-hover:text-cyan-300 transition-colors duration-300">
+        <p className="text-[9px] sm:text-[10px] md:text-xs text-purple-400 font-serif group-hover:text-cyan-300 transition-colors duration-300">
           {method.description}
         </p>
 

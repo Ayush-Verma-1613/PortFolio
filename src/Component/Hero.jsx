@@ -149,11 +149,7 @@ export default function PremiumHero() {
                 
                 {/* Decorative line */}
                 <div className="w-12 sm:w-16 h-0.5 bg-blue-500 mx-auto lg:mx-0"></div>
-                
-                {/* Title */}
-                <h2 className="text-lg sm:text-xl md:text-xl lg:text-xl xl:text-2xl font-semibold text-blue-400">
-                  {heroConfig.title}
-                </h2>
+               
                 
                 {/* Dynamic Role with typewriter */}
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 border border-white/10 inline-block">
