@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from 'react';
 // Configuration object for easy customization
 const footerConfig = {
   name: "Ayush",
-  title: "MERN Stack Developer",
   tagline: "Building digital experiences that matter",
   location: "Delhi, India"
 };
@@ -109,9 +108,7 @@ export default function PremiumFooter() {
                   
                   <div className="w-12 sm:w-16 h-0.5 sm:h-1 bg-cyan-500 mx-auto"></div>
                   
-                  <p className="text-base sm:text-lg text-cyan-300 font-serif font-semibold drop-shadow-lg">
-                    {footerConfig.title}
-                  </p>
+                  
                   
                   <p className="text-xs sm:text-sm md:text-base text-gray-200 font-serif max-w-2xl mx-auto px-4">
                     {footerConfig.tagline}
