@@ -21,7 +21,23 @@ const projectsConfig = {
       "highlights": ["Skill-Based Connections", "Real-Time Chat", "Profile Editing", "Mobile Responsive"]
     },
     {
-      "id": 2,
+  "id": 2,
+  "title": "Blog Web App",
+  "description": "A full-stack blog application that allows users to read, write, and manage blogs with authentication and a modern responsive interface.",
+  "longDescription": "Blog Web App is a full-stack project built to practice modern web development using Next.js and MongoDB. It includes features like user authentication, blog creation and management, secure APIs, and responsive design. The platform provides a smooth experience for both readers and admins to publish and manage content efficiently.",
+  "tech": ["Next.js", "React", "MongoDB", "Node.js", "JavaScript", "Tailwind CSS"],
+  "category": "Web Application",
+  "image": "blog.png",
+  "gradient": "from-purple-500 to-pink-500",
+  "link": "https://blog-web-app-azure.vercel.app/",
+  "github": "https://github.com/Ayush-Verma-1613/Blog-webApp",
+  "status": "Live",
+  "year": "2026",
+  "highlights": ["User Authentication", "Blog Management", "Secure APIs", "Responsive UI"]
+},
+
+    {
+      "id": 3,
       "title": "IPO Tracker",
       "description": "A modern IPO application displaying live IPO listings with real-time data integration, built with a responsive UI using React and Tailwind CSS.",
       "longDescription": "This IPO tracking platform leverages React for a dynamic frontend, Tailwind CSS for a sleek and responsive design, and API integration to fetch and display live IPO data. The application uses libraries like kuicide-react for enhanced functionality and seamless user experience.",
@@ -36,7 +52,7 @@ const projectsConfig = {
       "highlights": ["Live IPO Data", "API Integration", "Responsive Design", "Real-Time Updates"]
     },
     {
-      "id": 3,
+      "id": 4,
       "title": "ChatBot",
       "description": "An interactive chatbot application powered by the Gemini API, built with HTML, CSS, and JavaScript, allowing users to ask any question and receive intelligent responses.",
       "longDescription": "This chatbot leverages the Gemini API for natural language processing, providing a seamless conversational experience. Built with HTML, CSS, and JavaScript, it features a user-friendly interface and supports dynamic question-and-answer interactions for a wide range of queries.",
@@ -49,22 +65,8 @@ const projectsConfig = {
       "status": "Live",
       "year": "2024",
       "highlights": ["Gemini API Integration", "Interactive Q&A", "Responsive UI", "Real-Time Responses"]
-    },
-    {
-      "id": 4,
-      "title": "TextUtils",
-      "description": "A text manipulation tool built with React.js, offering features like uppercase conversion, space removal, lowercase conversion, text copying, and a dark mode toggle for enhanced user experience.",
-      "longDescription": "TextUtils is a learning project created to explore React.js, featuring a variety of text utilities such as converting text to uppercase or lowercase, removing extra spaces, copying text to the clipboard, and a dark mode toggle for accessibility. The application provides a simple and responsive interface for users to manipulate text efficiently.",
-      "tech": ["React", "JavaScript", "CSS"],
-      "category": "Utility",
-      "image": "TextUtils.png",
-      "gradient": "from-blue-500 to-indigo-500",
-      "link": "https://textutils-five-blue.vercel.app/",
-      "github": "https://github.com/Ayush-Verma-1613/Textutils/tree/main",
-      "status": "Live",
-      "year": "2023",
-      "highlights": ["Text Manipulation", "Dark Mode", "Responsive UI", "React.js Learning"]
     }
+   
   ],
   categories: ["All"]
 };
